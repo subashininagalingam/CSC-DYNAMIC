@@ -1,0 +1,90 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Careers - Join Our Team | CSC Anna Nagar{% endblock %}
+{% block meta_description %}Open positions at CSC Anna Nagar, Chennai. Join our growing team of passionate educators and professionals and apply online.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/careers.css' %}">{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap hero-split">
+    <div>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Careers</span></nav>
+      <span class="kicker"><i class="fa-solid fa-briefcase"></i> We Are Hiring</span>
+      <h1>Build Your Career With CSC Anna Nagar</h1>
+      <p>Join our growing team of passionate educators and professionals. Explore exciting opportunities and take the next step in your career.</p>
+    </div>
+    <div class="hero-photo"><img src="{% static 'main/images/hiring.jpg' %}" alt="We are hiring at CSC Anna Nagar" width="554" height="554"></div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Open Positions</h2><p>Find your perfect role and be part of our mission to shape futures.</p></div>
+    {% if careers %}
+    <div class="grid grid--3">
+      {% for job in careers %}
+      <article class="card card--lift job">
+        <div class="job__head"><span class="icon-chip" style="margin:0"><i class="fa-solid fa-briefcase"></i></span><span class="badge {% if job.employment_type != 'Full Time' %}badge--soft{% endif %}">{{ job.employment_type }}</span></div>
+        <h3>{{ job.role }}</h3>
+        <div class="job__meta">
+          {% if job.location %}<span><i class="fa-solid fa-location-dot"></i> {{ job.location }}</span>{% endif %}
+          {% if job.salary %}<span><i class="fa-solid fa-indian-rupee-sign"></i> {{ job.salary }}</span>{% endif %}
+          <span><i class="fa-regular fa-calendar"></i> {{ job.posted_on|date:"d M Y" }}</span>
+        </div>
+        <p>{{ job.job_description }}</p>
+        {% if job.skills_required %}<ul class="chips">{% for skill in job.skills_required.split|slice:":5" %}<li class="chip">{{ skill|cut:"," }}</li>{% endfor %}</ul>{% endif %}
+        <button class="btn btn--dark btn--block" type="button" onclick="openApplyPopup('{{ job.id }}', '{{ job.role|escapejs }}')">Apply Now <i class="fa-solid fa-arrow-right"></i></button>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty"><h3>No Openings Right Now</h3><p>We are currently not hiring. Please check back soon for new opportunities!</p></div>
+    {% endif %}
+  </div>
+</section>
+
+<div class="modal" id="applyPopup" role="dialog" aria-modal="true" aria-labelledby="applyTitle">
+  <div class="modal__box">
+    <div class="modal__head">
+      <h2 id="applyTitle">Apply for Position</h2>
+      <span class="badge"><i class="fa-solid fa-briefcase"></i> <span id="popupRoleName">Loading...</span></span>
+      <button class="modal__close" type="button" onclick="closeApplyPopup()" title="Close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal__body">
+      <form method="POST" action="" enctype="multipart/form-data" id="applyForm">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="field"><label>Full Name <span class="req">*</span></label><input type="text" name="name" class="form-input" placeholder="Your Full Name" required></div>
+          <div class="field"><label>Mobile Number <span class="req">*</span></label><input type="tel" name="mobile" class="form-input" placeholder="+91 XXXXX XXXXX" required></div>
+        </div>
+        <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" name="email" class="form-input" placeholder="your@email.com" required></div>
+        <div class="field"><label>Applying For</label><input type="text" name="role_display" id="roleDisplayInput" class="form-input" readonly></div>
+        <div class="form-row">
+          <div class="field"><label>Highest Qualification <span class="req">*</span></label><input type="text" name="highest_qualification" class="form-input" placeholder="e.g. B.E Computer Science" required></div>
+          <div class="field"><label>Passed Out Year <span class="req">*</span></label><input type="text" name="passed_out_year" class="form-input" placeholder="e.g. 2023" required maxlength="4"></div>
+        </div>
+        <div class="field"><label for="resumeInput">Resume <span class="req">*</span></label>
+          <label class="file-label" id="resumeLabel" for="resumeInput"><i class="fa-solid fa-paperclip"></i> <span id="resumeText">Click to upload your Resume (PDF / DOC)</span></label>
+          <input type="file" name="resume" class="sr-only" id="resumeInput" accept=".pdf,.doc,.docx" required onchange="updateFileName(this,'resumeText')"></div>
+        <div class="field"><label>Cover Letter <span class="muted" style="font-weight:400">(Optional)</span></label><textarea name="cover_letter" class="form-input" placeholder="Tell us why you are the right fit for this role..." rows="4"></textarea></div>
+        <button type="submit" class="btn btn--primary btn--block btn--lg" id="submitBtn">Submit Application</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+function openApplyPopup(careerId, roleName) {
+  document.getElementById('applyForm').action = '/careers/apply/' + careerId + '/';
+  document.getElementById('roleDisplayInput').value = roleName;
+  document.getElementById('popupRoleName').textContent = roleName;
+  document.getElementById('applyPopup').classList.add('open'); document.body.style.overflow = 'hidden';
+}
+function closeApplyPopup() { document.getElementById('applyPopup').classList.remove('open'); document.body.style.overflow = ''; }
+function updateFileName(input, spanId) {
+  var span = document.getElementById(spanId);
+  if (input.files && input.files[0]) { span.textContent = input.files[0].name; span.style.fontWeight = '700'; }
+}
+document.getElementById('applyForm').addEventListener('submit', function () { var b = document.getElementById('submitBtn'); b.textContent = 'Submitting...'; b.disabled = true; });
+{% if open_career %}document.addEventListener('DOMContentLoaded', function () { var c = document.querySelector("[onclick*=\"openApplyPopup('{{ open_career }}'\"]"); if (c) c.click(); });{% endif %}
+</script>
+{% endblock %}

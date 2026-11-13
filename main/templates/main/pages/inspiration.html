@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Inspiration | CSC Computer Software College{% endblock %}
+{% block meta_description %}Dream big, learn more, achieve more. Inspiration for every learner at CSC Computer Software College, Anna Nagar.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}"><link rel="stylesheet" href="{% static 'main/css/pages/content.css' %}">{% endblock %}
+
+{% block content %}
+<section class="page-hero insp-hero">
+  <div class="wrap hero-split">
+    <div class="insp-person">
+      <div class="portrait"><img src="{% static 'main/images/image.png' %}" alt="Dr. APJ Abdul Kalam" width="482" height="400"></div>
+      <p class="caption"><span>&ldquo;</span> Great dreams inspire great actions.</p>
+    </div>
+    <div>
+      <span class="kicker"><i class="fas fa-star"></i> Inspiration for every learner</span>
+      <h1>Dream Big. Learn More. Achieve More.</h1>
+      <blockquote class="quote">Learning gives you the power to imagine, the courage to create, and the confidence to grow.<footer>Inspirational Thought</footer></blockquote>
+      <p>At CSC Computer Software College, we believe every student has the potential to achieve something great. Learn new skills, discover your strengths, and build a future you can be proud of.</p>
+      <a href="{% url 'courses' %}" class="btn btn--primary btn--lg">Explore Our Courses <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="wrap grid grid--4">
+    <div class="card"><span class="icon-chip"><i class="fas fa-users"></i></span><h3>Practical Learning</h3><p>Learn by doing</p></div>
+    <div class="card"><span class="icon-chip"><i class="fas fa-briefcase"></i></span><h3>Career Support</h3><p>Prepare with confidence</p></div>
+    <div class="card"><span class="icon-chip"><i class="fas fa-book-open"></i></span><h3>Industry-Relevant</h3><p>Skills and knowledge</p></div>
+    <div class="card"><span class="icon-chip"><i class="fas fa-chart-line"></i></span><h3>Continuous Growth</h3><p>Learn &middot; Build &middot; Grow</p></div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head center"><span class="badge">Your journey starts here</span><h2 style="margin-top:1rem">Every Expert Was Once a Beginner</h2><p>Success begins with curiosity, grows through practice, and becomes reality through determination.</p></div>
+    <div class="grid grid--3">
+      <div class="card card--lift"><span class="icon-chip"><i class="fas fa-lightbulb"></i></span><h3>Think Creatively</h3><p>Ask questions, explore new ideas, and find creative solutions to everyday challenges.</p></div>
+      <div class="card card--lift"><span class="icon-chip"><i class="fas fa-laptop-code"></i></span><h3>Build Your Skills</h3><p>Develop practical technical skills through continuous learning and hands-on experience.</p></div>
+      <div class="card card--lift"><span class="icon-chip"><i class="fas fa-rocket"></i></span><h3>Reach Your Goals</h3><p>Turn your knowledge into action and take confident steps towards your career goals.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--sun">
+  <div class="wrap cta-row">
+    <div><span class="badge" style="background:#fff">Your future starts today</span><h2 style="margin:1rem 0 .25rem">Believe in Yourself. Build Your Future.</h2><p style="margin:0">Take the first step towards learning, growing, and achieving your dreams.</p></div>
+    <a href="{% url 'courses' %}" class="btn btn--dark btn--lg">Start Learning <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+{% endblock %}

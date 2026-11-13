@@ -1,0 +1,76 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}UPI Payment | CSC{% endblock %}
+{% block robots %}noindex, nofollow{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}">{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <span class="kicker">Registration Successful</span>
+    <h1>Complete Your Payment</h1>
+    <p>Pay using the CSC UPI QR code, then submit your transaction details for verification.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap reg-layout">
+    <div class="stack">
+      <aside class="card card--tint summary">
+        <span class="badge">Your Booking</span>
+        <h2 style="font-size:var(--fs-xl);margin-top:1rem">{{ booking.course.name }}</h2>
+        <div class="fee"><span>Booking Reference</span><strong>{{ booking.booking_ref }}</strong></div>
+        <div class="fee"><span>Amount Payable</span><strong>&#8377;{{ booking.course.offer_fee }}</strong></div>
+      </aside>
+      <div class="card">
+        <h3>Before You Pay</h3>
+        <ol class="learn-list">
+          <li>Pay the exact amount shown above.</li><li>Check the transaction status in your UPI app.</li><li>Note your UPI transaction ID.</li><li>Keep the payment screenshot ready.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card card--outline">
+        <h2 style="font-size:var(--fs-xl)">Pay via UPI</h2>
+        <p class="muted">Scan the official CSC UPI QR code using your UPI app.</p>
+        <div class="qr-wrap">
+          <div class="qr"><img src="{% static 'main/images/qr.jpeg' %}" alt="CSC UPI QR Code" width="200"></div>
+          <div class="upi-info">
+            <span class="muted">UPI ID</span><strong>REPLACE_WITH_CSC_UPI_ID</strong>
+            <span class="muted">Amount</span><strong>&#8377;{{ booking.course.offer_fee }}</strong>
+            <ul class="chips"><li class="chip">Google Pay</li><li class="chip">PhonePe</li><li class="chip">Paytm</li><li class="chip">BHIM</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="font-size:var(--fs-xl)">Already Paid?</h2>
+        <p class="muted">Enter your UPI transaction ID and attach the payment screenshot.</p>
+        <form method="post" enctype="multipart/form-data" class="form-stack" novalidate>
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn--primary btn--block btn--lg">Submit for Verification <i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+      </div>
+
+      <div class="notice"><i class="fa-solid fa-circle-exclamation"></i>
+        <div><h3>Important</h3><p>Your seat is confirmed only after we verify your payment. This usually takes a short time. Please keep your booking reference handy.</p></div></div>
+
+      <div class="grid grid--2">
+        <div class="card">
+          <h3>Next Steps</h3>
+          <ol class="track"><li class="done">Registration Submitted</li><li>Payment Verification</li><li>Admission Confirmed</li></ol>
+        </div>
+        <div class="card">
+          <h3>Need Help With Payment?</h3>
+          <p>+91 XXXXX XXXXX</p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <a href="tel:+91XXXXXXXXXX" class="btn btn--dark btn--sm">Call CSC</a>
+            <a href="https://wa.me/91XXXXXXXXXX" class="btn btn--ghost btn--sm" target="_blank" rel="noopener">WhatsApp Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

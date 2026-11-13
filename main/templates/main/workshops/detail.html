@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{ w.title }} | CSC Workshops{% endblock %}
+{% block meta_description %}{{ w.title }} - {{ w.short_description }} {{ w.date|date:"d M Y" }}, {{ w.mode }}. Register at CSC Anna Nagar, Chennai.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}"><link rel="stylesheet" href="{% static 'main/css/pages/workshops.css' %}">{% endblock %}
+{% block json_ld %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Event","name":"{{ w.title|escapejs }}","description":"{{ w.short_description|escapejs }}","startDate":"{{ w.date|date:'Y-m-d' }}T{{ w.start_time|time:'H:i' }}","endDate":"{{ w.date|date:'Y-m-d' }}T{{ w.end_time|time:'H:i' }}",
+"eventAttendanceMode":"https://schema.org/{% if w.mode == 'Online' %}OnlineEventAttendanceMode{% else %}OfflineEventAttendanceMode{% endif %}","location":{"@type":"Place","name":"{% if w.venue %}{{ w.venue|escapejs }}{% else %}{{ site.full_name }}{% endif %}","address":"{{ site.address_inline|escapejs }}"},
+"organizer":{"@type":"Organization","name":"{{ site.full_name }}","url":"{{ site_url }}/"}}
+</script>
+{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap hero-split">
+    <div>
+      <a href="{% url 'workshop' %}" class="breadcrumb" style="display:inline-flex">&larr; All Workshops</a>
+      <span class="kicker">Workshop Details</span>
+      <h1>{{ w.title }}</h1>
+      <p>{{ w.short_description }}</p>
+      <ul class="chips" style="margin:1.25rem 0"><li class="chip"><i class="fa-regular fa-calendar"></i> {{ w.date|date:"d M Y" }}</li><li class="chip"><i class="fa-regular fa-clock"></i> {{ w.start_time|time:"h:i A" }} – {{ w.end_time|time:"h:i A" }}</li><li class="chip"><i class="fa-solid fa-location-dot"></i> {{ w.mode }}</li></ul>
+      {% if w.seats_left == 0 %}<span class="badge">Seats Full</span>{% else %}<a href="{% url 'workshop_register' w.id %}" class="btn btn--primary">Register Now <i class="fa-solid fa-arrow-right"></i></a>{% endif %}
+    </div>
+    <div class="hero-photo">{% if w.image %}<img src="{{ w.image.url }}" alt="{{ w.title }}">{% endif %}</div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap detail-layout">
+    <div>
+      <h2>About This Workshop</h2>
+      {% if w.description %}<p>{{ w.description|linebreaksbr }}</p>{% else %}<p>{{ w.short_description }}</p>{% endif %}
+    </div>
+    <aside class="detail-aside">
+      <div class="card card--outline">
+        <h2 style="font-size:var(--fs-xl)">Workshop Info</h2>
+        <p class="muted">Everything you need to know before you register.</p>
+        <div class="date-big"><b>{{ w.date|date:"d" }}</b><span>{{ w.date|date:"M Y" }}</span><small>{{ w.date|date:"l" }}</small></div>
+        <ul class="fact-list">
+          <li><span>Time</span><strong>{{ w.start_time|time:"h:i A" }} – {{ w.end_time|time:"h:i A" }}</strong></li>
+          <li><span>Mode</span><strong>{{ w.mode }}</strong></li>
+          {% if w.venue %}<li><span>Venue</span><strong>{{ w.venue }}</strong></li>{% endif %}
+          {% if w.seats_left != None %}<li><span>Seats left</span><strong>{{ w.seats_left }}</strong></li>{% endif %}
+        </ul>
+        {% if w.seats_left == 0 %}<span class="badge badge--soft">Seats Full</span>{% else %}<a href="{% url 'workshop_register' w.id %}" class="btn btn--primary btn--block">Register Now <i class="fa-solid fa-arrow-right"></i></a>{% endif %}
+      </div>
+      <div class="card card--tint"><h3>Want to Join Our Next Workshop?</h3><p>Stay connected with CSC for upcoming workshops and learning opportunities.</p><a href="{% url 'contact' %}" class="btn btn--dark btn--sm">Contact Us</a></div>
+    </aside>
+  </div>
+</section>
+{% endblock %}

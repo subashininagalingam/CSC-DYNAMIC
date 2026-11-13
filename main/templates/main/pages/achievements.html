@@ -1,0 +1,112 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Student Achievements | CSC Anna Nagar{% endblock %}
+{% block meta_description %}Achievements, awards and student success stories from CSC Anna Nagar, Chennai - learning milestones, projects and recognition.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}"><link rel="stylesheet" href="{% static 'main/css/pages/content.css' %}">{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap hero-split">
+    <div>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Achievements</span></nav>
+      <span class="kicker">Student Achievement</span>
+      <h1>Turning Learning Into Achievement</h1>
+      <p>A closer look at a learning milestone, project accomplishment or recognition at CSC.</p>
+    </div>
+    <div class="hero-photo"><img src="{% static 'main/images/hero.jpg' %}" alt="Students receiving achievement certificate" width="1402" height="1122"></div>
+  </div>
+</section>
+
+{% if achievements %}
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Our Achievements</h2></div>
+    <div class="grid grid--3">
+      {% for a in achievements %}
+      <article class="media-card">
+        <div class="media-card__img">{% if a.image %}<img src="{{ a.image.url }}" alt="{{ a.title }}" loading="lazy">{% else %}<div class="img-ph"><i class="fa-solid fa-trophy"></i></div>{% endif %}</div>
+        <div class="media-card__body"><h3>{{ a.title }}</h3>{% if a.date %}<p><i class="fa-regular fa-calendar"></i> {{ a.date|date:"d M Y" }}</p>{% endif %}<p>{{ a.description }}</p></div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section {% if achievements %}section--tint{% endif %}">
+  <div class="wrap split" style="align-items:start">
+    <div>
+      <h2>About This Achievement</h2>
+      <p>This achievement recognises the dedication, practical skills and teamwork of our students. It highlights a learning milestone or project accomplishment delivered with high-quality standards and real-world focus.</p>
+      <p>The learning journey covers the core skills involved, where students moved from concepts to practical outcomes, building confidence and technical ability along the way.</p>
+      <p>CSC's support, guidance and hands-on training helped turn this effort into a recognised success.</p>
+    </div>
+    <aside class="card card--tint">
+      <div class="meta-item"><span>Achievement Type</span><b>Student / Project / Academic / Workshop</b></div>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head"><span class="badge">Key Highlights</span><h2 style="margin-top:1rem">Achievement Highlights</h2></div>
+    <div class="grid grid--4">
+      <div class="card"><span class="icon-chip"><i class="fa-solid fa-book-open"></i></span><h4>Practical Learning</h4><p>Learn through hands-on, structured learning.</p></div>
+      <div class="card"><span class="icon-chip"><i class="fa-solid fa-diagram-project"></i></span><h4>Project Development</h4><p>Ensures visual progress through project development.</p></div>
+      <div class="card"><span class="icon-chip"><i class="fa-solid fa-gear"></i></span><h4>Technical Skills</h4><p>Strengthens skill-based technical knowledge.</p></div>
+      <div class="card"><span class="icon-chip"><i class="fa-solid fa-people-group"></i></span><h4>Team Collaboration</h4><p>Team collaboration and acknowledgement.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="about-photo"><img src="{% static 'main/images/story.jpg' %}" alt="Students working on a project" loading="lazy" width="1355" height="1161"></div>
+    <div>
+      <h2>Project / Achievement Story</h2>
+      <h3>From Learning to Real-World Application</h3>
+      <ol class="story-steps">
+        <li><b>01</b><div><h4>Learning</h4><p>Understanding concepts through structured training.</p></div></li>
+        <li><b>02</b><div><h4>Building</h4><p>Applying knowledge through practical projects and activities.</p></div></li>
+        <li><b>03</b><div><h4>Achieving</h4><p>Presenting, completing or receiving recognition for the outcome.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Achievement Moments Gallery</h2></div>
+    <div class="gallery">
+      <img class="g-main" src="{% static 'main/images/gallery-1.jpg' %}" alt="Gallery 1" loading="lazy">
+      <img src="{% static 'main/images/gallery-2.jpg' %}" alt="Gallery 2" loading="lazy">
+      <img src="{% static 'main/images/gallery-3.jpg' %}" alt="Gallery 3" loading="lazy">
+      <img src="{% static 'main/images/gallery-4.jpg' %}" alt="Gallery 4" loading="lazy">
+      <img src="{% static 'main/images/gallery-5.jpg' %}" alt="Gallery 5" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Related Achievements</h2></div>
+    <div class="grid grid--3">
+      <article class="media-card"><div class="media-card__img"><img src="{% static 'main/images/related-1.jpg' %}" alt="Student Success" loading="lazy"></div><div class="media-card__body"><span class="badge badge--soft">Category Achievement</span><h3>Student Success</h3></div></article>
+      <article class="media-card"><div class="media-card__img"><img src="{% static 'main/images/gallery-4.jpg' %}" alt="Project Showcase" loading="lazy"></div><div class="media-card__body"><span class="badge badge--soft">Category Project</span><h3>Project Showcase</h3></div></article>
+      <article class="media-card"><div class="media-card__img"><img src="{% static 'main/images/gallery-5.jpg' %}" alt="Learning Milestone" loading="lazy"></div><div class="media-card__body"><span class="badge badge--soft">Category Milestone</span><h3>Learning Milestone</h3></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--indigo on-dark">
+  <div class="wrap center">
+    <h2>Create Your Own Achievement Story</h2>
+    <p class="lead">Explore CSC courses and turn your learning into practical skills and meaningful outcomes.</p>
+    <div class="page-hero__actions" style="justify-content:center">
+      <a href="{% url 'courses' %}" class="btn btn--primary">Explore Courses</a>
+      <a href="{% url 'contact' %}" class="btn btn--outline-light">Contact CSC</a>
+    </div>
+    <p style="margin-top:1.5rem"><a href="{% url 'home' %}">&larr; Back to Home</a></p>
+  </div>
+</section>
+{% endblock %}

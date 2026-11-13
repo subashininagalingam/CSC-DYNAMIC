@@ -1,0 +1,105 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.full_name }} | {{ site.tagline }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{{ site.default_description }}{% endblock %}">
+  <meta name="robots" content="{% block robots %}index, follow, max-image-preview:large{% endblock %}">
+  <link rel="canonical" href="{% block canonical %}{{ canonical_url }}{% endblock %}">
+  <meta name="theme-color" content="#272173">
+  <meta name="author" content="{{ site.name }}">
+  <meta name="geo.region" content="IN-TN">
+  <meta name="geo.placename" content="Anna Nagar, Chennai">
+
+  {# Open Graph / Twitter - how the page looks when shared on WhatsApp, Facebook, LinkedIn #}
+  <meta property="og:site_name" content="{{ site.full_name }}">
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}{% block title_og %}{{ site.full_name }}{% endblock %}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ site.default_description }}{% endblock %}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:image" content="{% block og_image %}{{ og_image_url }}{% endblock %}">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="{% static 'main/images/csc.webp' %}" type="image/webp">
+  <link rel="apple-touch-icon" href="{% static 'main/images/csc.webp' %}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  {# Design system (load order matters) #}
+  <link rel="stylesheet" href="{% static 'main/css/base/tokens.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/base/reset.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/base/typography.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/layout/layout.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/layout/header.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/layout/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/components/buttons.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/components/forms.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/components/cards.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/components/ui.css' %}">
+  {% block extra_css %}{% endblock %}
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  {# Structured data: tells Google who we are (shows address, phone, hours in search) #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["EducationalOrganization", "LocalBusiness"],
+    "@id": "{{ site_url }}/#organization",
+    "name": "{{ site.full_name }}",
+    "alternateName": "CSC Anna Nagar",
+    "url": "{{ site_url }}/",
+    "logo": "{{ og_image_url }}",
+    "image": "{{ og_image_url }}",
+    "description": "{{ site.default_description|escapejs }}",
+    "telephone": "{{ site.phone_link }}",
+    "email": "{{ site.email }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "AP-814, G Block, 1st Street, Near Anna Nagar Tower",
+      "addressLocality": "Anna Nagar, Chennai",
+      "addressRegion": "Tamil Nadu",
+      "postalCode": "{{ site.postal_code }}",
+      "addressCountry": "IN"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "09:00", "closes": "19:00"
+    }],
+    "sameAs": ["{{ site.facebook }}", "{{ site.instagram }}", "{{ site.linkedin }}"]
+  }
+  </script>
+  {% block json_ld %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  {% include 'main/partials/topbar.html' %}
+  {% include 'main/partials/navbar.html' %}
+
+  {% if messages %}
+  <div class="messages" role="status" aria-live="polite">
+    {% for message in messages %}<div class="msg {{ message.tags }}">{{ message }}</div>{% endfor %}
+  </div>
+  {% endif %}
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include 'main/partials/footer.html' %}
+
+  <a class="fab-wa" href="{{ site.whatsapp }}" target="_blank" rel="noopener noreferrer" aria-label="Chat with CSC on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top"><i class="fa-solid fa-chevron-up"></i></button>
+
+  <script src="{% static 'main/js/main.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% load static %}
+{% with n=request.resolver_match.url_name %}
+<header class="site-header" id="siteHeader">
+  <div class="wrap">
+    <a class="brand" href="{% url 'home' %}" aria-label="CSC Computer Software College - Home">
+      <img src="{% static 'main/images/csc.webp' %}" alt="CSC Computer Software College logo" width="79" height="46">
+      <span class="brand__place">Anna Nagar</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><i class="fa-solid fa-bars"></i></button>
+
+    <nav class="nav" id="siteNav" aria-label="Main">
+      <ul class="nav__list">
+        <li><a class="nav__link {% if n == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
+        <li><a class="nav__link {% if n == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a></li>
+        <li><a class="nav__link {% if n == 'courses' or n == 'programs' or n == 'program_detail' or n == 'course_detail' or n == 'book_course' or n == 'course_payment' or n == 'booking_success' %}active{% endif %}" href="{% url 'courses' %}">Courses</a></li>
+        <li><a class="nav__link nav__offer {% if n == 'offers' or n == 'registration' %}active{% endif %}" href="{% url 'offers' %}">Offers</a></li>
+        <li><a class="nav__link {% if n == 'placement' %}active{% endif %}" href="{% url 'placement' %}">Placement</a></li>
+        <li><a class="nav__link {% if n == 'workshop' or n == 'workshops' or n == 'workshop_detail' or n == 'workshop_register' %}active{% endif %}" href="{% url 'workshop' %}">Workshop</a></li>
+        <li><a class="nav__link {% if n == 'team' %}active{% endif %}" href="{% url 'team' %}">Our Team</a></li>
+        <li class="nav__more" id="navMore">
+          <button type="button" aria-haspopup="true" aria-expanded="false">More <i class="fa-solid fa-chevron-down"></i></button>
+          <ul class="nav__menu">
+            <li><a class="{% if n == 'achievements' %}active{% endif %}" href="{% url 'achievements' %}">Achievements</a></li>
+            <li><a class="{% if n == 'career' %}active{% endif %}" href="{% url 'career' %}">Careers</a></li>
+            <li><a class="{% if n == 'inspiration' %}active{% endif %}" href="{% url 'inspiration' %}">Inspiration</a></li>
+            <li><a class="{% if n == 'reviews' %}active{% endif %}" href="{% url 'reviews' %}">Student Reviews</a></li>
+          </ul>
+        </li>
+        <li><a class="btn btn--dark btn--sm" href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-btn icon-btn--wa" href="{{ site.whatsapp }}" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      <a class="icon-btn icon-btn--ig" href="{{ site.instagram }}" target="_blank" rel="noopener noreferrer" title="Follow on Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+  </div>
+</header>
+{% endwith %}

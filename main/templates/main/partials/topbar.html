@@ -1,0 +1,18 @@
+<div class="topbar" role="region" aria-label="Contact details and current offer">
+  <div class="topbar__marquee">
+    <div class="topbar__track">
+      {% for copy in "ab" %}
+      <div class="topbar__group"{% if forloop.last %} aria-hidden="true"{% endif %}>
+        <a class="tb-item" href="{{ site.map_link }}" target="_blank" rel="noopener noreferrer"{% if forloop.last %} tabindex="-1"{% endif %}><i class="fa-solid fa-location-dot"></i> CSC Anna Nagar</a>
+        <span class="tb-dot" aria-hidden="true">&#9670;</span>
+        <a class="tb-item tb-hl" href="tel:{{ site.phone_link }}"{% if forloop.last %} tabindex="-1"{% endif %}><i class="fa-solid fa-phone"></i> {{ site.phone }}</a>
+        <span class="tb-dot" aria-hidden="true">&#9670;</span>
+        <a class="tb-item tb-hl" href="mailto:{{ site.email }}"{% if forloop.last %} tabindex="-1"{% endif %}><i class="fa-solid fa-envelope"></i> {{ site.email }}</a>
+        <span class="tb-dot" aria-hidden="true">&#9670;</span>
+        <a class="tb-item tb-offer" href="{% url 'registration' %}"{% if forloop.last %} tabindex="-1"{% endif %}><i class="fa-solid fa-graduation-cap"></i> SAT 2026 &middot; Up to 75% scholarship &middot; Register now &rarr;</a>
+        <span class="tb-dot" aria-hidden="true">&#9670;</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

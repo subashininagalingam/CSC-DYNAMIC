@@ -1,0 +1,8 @@
+<figure class="review-card">
+  <div class="review-card__head">
+    {% if r.image %}<img src="{{ r.image.url }}" alt="{{ r.name }}" loading="lazy">{% else %}<span class="review-card__ph">{{ r.name|slice:":1"|upper }}</span>{% endif %}
+    <figcaption><strong>{{ r.name }}</strong>{% if r.role %}<small>{{ r.role }}</small>{% endif %}</figcaption>
+  </div>
+  <div class="stars" aria-label="{{ r.rating }} out of 5 stars">{% for i in "12345" %}{% if forloop.counter <= r.rating %}&#9733;{% else %}&#9734;{% endif %}{% endfor %}</div>
+  <blockquote>&ldquo;{{ r.text|truncatewords:25 }}&rdquo;</blockquote>
+</figure>

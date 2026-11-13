@@ -1,0 +1,134 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{ p.name }} ({{ p.code }}) Course in Chennai | CSC Anna Nagar{% endblock %}
+{% block meta_description %}{{ p.name }} at CSC Anna Nagar, Chennai. {{ p.objective|truncatechars:110 }} Eligibility: {{ p.audience|truncatechars:60 }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/programs.css' %}">{% endblock %}
+{% block json_ld %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Course","name":"{{ p.name|escapejs }}","description":"{{ p.overview|escapejs }}","courseCode":"{{ p.code|escapejs }}",
+"educationalLevel":"{{ p.level }}","provider":{"@type":"EducationalOrganization","name":"{{ site.full_name }}","sameAs":"{{ site_url }}/"},
+"audience":{"@type":"EducationalAudience","audienceType":"{{ p.audience|escapejs }}"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"{{ site_url }}/"},
+{"@type":"ListItem","position":2,"name":"Programmes","item":"{{ site_url }}{% url 'programs' %}"},
+{"@type":"ListItem","position":3,"name":"{{ p.name|escapejs }}"}]}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap pd-hero">
+    <div>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><a href="{% url 'programs' %}">Programmes</a><i class="fa-solid fa-chevron-right"></i><span>{{ p.code }}</span></nav>
+      <span class="kicker">{{ p.level }}</span>
+      <h1>{{ p.name }}</h1>
+      <p>{{ p.overview|truncatechars:190 }}</p>
+      <div class="page-hero__actions">
+        <a class="btn btn--primary" href="{% url 'registration' %}">Register for SAT 2026</a>
+        <a class="btn btn--outline-light" href="{% url 'contact' %}">Enquire Now</a>
+      </div>
+    </div>
+    <div class="pd-code" aria-hidden="true">{{ p.code }}</div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="facts">
+      <div><small>Target audience</small><strong>{{ p.audience }}</strong></div>
+      {% if p.prerequisites %}<div><small>Prerequisites</small><strong>{{ p.prerequisites }}</strong></div>{% endif %}
+      <div><small>Syllabus</small><strong>{{ p.module_count }} modules &middot; {{ p.topic_count }} topics</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap pd-layout">
+  <div class="pd-main">
+
+    {% if p.facts %}
+    <section class="pd-block card card--tint"><h2>{{ p.facts_title }}</h2><ul class="ticks">{% for f in p.facts %}<li>{{ f }}</li>{% endfor %}</ul></section>
+    {% endif %}
+
+    <section class="pd-block" id="overview">
+      <h2>Objective</h2><p>{{ p.objective }}</p>
+      <h2>Overview</h2><p>{{ p.overview }}</p>
+      {% for n in p.notes %}<p class="note"><i class="fa-solid fa-circle-info"></i> {{ n }}</p>{% endfor %}
+    </section>
+
+    <section class="pd-block" id="coverage">
+      <h2>Course coverage</h2>
+      {% for s in p.sections %}
+      <div class="syl-section" id="sec-{{ forloop.counter }}">
+        <h3 class="syl-section__title">{{ s.title }}</h3>
+        <div class="syl-blocks">
+          {% for b in s.blocks %}
+          <div class="syl-block">
+            <h4>{{ b.title }}{% if b.elective %} <span class="badge badge--soft">{{ b.elective }}</span>{% endif %}</h4>
+            {% if b.groups %}
+              {% for label, topics in b.groups %}
+              <div class="syl-group"><h5>{{ label }}</h5><ul class="chips">{% for t in topics %}<li class="chip">{{ t }}</li>{% endfor %}</ul></div>
+              {% endfor %}
+            {% else %}
+              {% if b.topics %}<ul class="chips">{% for t in b.topics %}<li class="chip">{{ t }}</li>{% endfor %}</ul>{% endif %}
+            {% endif %}
+            {% if b.note %}<p>{{ b.note }}</p>{% endif %}
+            {% if b.project %}<p class="note"><strong>Project:</strong> {{ b.project }}</p>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% if s.project %}<div class="project"><i class="fa-solid fa-diagram-project"></i><div><strong>Project</strong><p>{{ s.project }}</p></div></div>{% endif %}
+      </div>
+      {% endfor %}
+    </section>
+
+    {% if p.projects or p.case_study %}
+    <section class="pd-block" id="project">
+      <h2>{% if p.case_study %}Case study{% else %}Project{% endif %}</h2>
+      {% for pr in p.projects %}<div class="project"><i class="fa-solid fa-diagram-project"></i><p>{{ pr }}</p></div>{% endfor %}
+      {% if p.case_study %}<div class="project"><i class="fa-solid fa-briefcase"></i><p>{{ p.case_study }}</p></div>{% endif %}
+    </section>
+    {% endif %}
+
+    {% if p.chatgpt %}
+    <section class="pd-block card card--tint"><h2>ChatGPT</h2><p>{{ chatgpt_text }}</p></section>
+    {% endif %}
+
+    {% if p.tools %}
+    <section class="pd-block"><h2>Tools &amp; technologies</h2><ul class="chips">{% for t in p.tools %}<li class="chip">{{ t }}</li>{% endfor %}</ul></section>
+    {% endif %}
+  </div>
+
+  <aside class="pd-aside">
+    <div class="card card--outline">
+      <h3>Get this programme</h3>
+      <p class="muted">Register for the SAT 2026 scholarship test and win up to 75% off your course fees.</p>
+      <a class="btn btn--primary btn--block" href="{% url 'registration' %}">Register Now</a>
+      <a class="btn btn--ghost btn--block" style="margin-top:.6rem" href="{% url 'contact' %}">Enquire Now</a>
+      <p class="form-note"><i class="fa-solid fa-phone"></i> <a href="tel:{{ site.phone_link }}">{{ site.phone }}</a></p>
+    </div>
+    <nav class="card toc" aria-label="On this page">
+      <h3>On this page</h3>
+      <ol>
+        <li><a href="#overview">Objective &amp; overview</a></li>
+        {% for s in p.sections %}<li><a href="#sec-{{ forloop.counter }}">{{ s.title }}</a></li>{% endfor %}
+      </ol>
+    </nav>
+  </aside>
+</div>
+
+{% if related %}
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Related programmes</h2></div>
+    <div class="grid grid--3">
+      {% for r in related %}
+      <a class="card card--lift prog-link" href="{% url 'program_detail' r.slug %}"><span class="badge badge--soft">{{ r.level }}</span><h3>{{ r.name }}</h3><span class="link-arrow">View syllabus <i class="fa-solid fa-arrow-right"></i></span></a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

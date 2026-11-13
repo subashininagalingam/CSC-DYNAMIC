@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Student Reviews | CSC Anna Nagar{% endblock %}
+{% block meta_description %}Read what students say about learning at CSC Anna Nagar, Chennai.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/home.css' %}">{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Student Reviews</span></nav><h1>Student Reviews</h1><p>Real words from the students who learn at CSC Anna Nagar.</p></div></section>
+<section class="section"><div class="wrap">
+  <div class="grid grid--3 review-grid">{% for r in reviews %}{% include 'main/partials/review_card.html' %}{% empty %}<div class="empty" style="grid-column:1/-1"><h3>No reviews yet</h3><p>Student reviews will appear here soon.</p></div>{% endfor %}</div>
+</div></section>
+{% endblock %}

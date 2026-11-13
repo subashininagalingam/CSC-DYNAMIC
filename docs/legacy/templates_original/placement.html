@@ -1,0 +1,151 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Placement Support | CSC - Computer Software College{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/css/placement.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="pl">
+
+<!-- HERO -->
+<section class="pl-hero">
+  <div class="pl-wrap pl-hero__grid">
+    <div class="pl-hero__text">
+      <span class="pl-badge">PLACEMENT SUPPORT</span>
+      <h1>From Skills to Opportunities</h1>
+      <p>Build the skills you need, prepare with confidence, and receive guidance as you take your next step toward the workplace.</p>
+      <div class="pl-hero__btns">
+        <a href="{% url 'contact' %}" class="pl-btn pl-btn--yellow">Get Placement Support &rarr;</a>
+        <a href="{% url 'courses' %}" class="pl-link-light">Explore Courses</a>
+      </div>
+    </div>
+    <div class="pl-hero__img">
+      <img src="{% static 'main/images/python.webp' %}" alt="CSC students receiving career guidance" onerror="this.style.display='none'">
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="pl-sec">
+  <div class="pl-wrap">
+    <div class="pl-head pl-center">
+      <span class="pl-eyebrow">PLACEMENT SUPPORT JOURNEY</span>
+      <h2>How CSC Supports Your Placement Journey</h2>
+    </div>
+
+    <ol class="pl-journey">
+      {% for step in steps %}
+      <li>
+        <i>&darr;</i>
+        <b>{{ forloop.counter|stringformat:"02d" }}</b>
+        <h3>{{ step.title|upper }}</h3>
+        <p>{{ step.description }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="pl-sec pl-tint">
+  <div class="pl-wrap">
+    <div class="pl-head pl-center">
+      <span class="pl-eyebrow">PLACEMENT SUPPORT SERVICES</span>
+      <h2>What Our Placement Support Includes</h2>
+      <p>Six areas of preparation that help you step into the workplace with confidence.</p>
+    </div>
+
+    <div class="pl-services">
+      {% for service in services %}
+      <div class="pl-card">
+        <span class="pl-ico">{{ service.icon }}</span>
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CAREER READINESS -->
+<section class="pl-sec">
+  <div class="pl-wrap pl-split">
+    <div class="pl-split__img">
+      <img src="{% static 'main/images/java.webp' %}" alt="Resume review session at CSC" onerror="this.style.display='none'">
+    </div>
+    <div class="pl-split__text">
+      <span class="pl-eyebrow">CAREER READINESS</span>
+      <h2>Prepare Before the Opportunity Arrives</h2>
+      <p>Placement support is more than applying for a job. It is about preparing your skills, profile, communication and confidence before you step into the professional world.</p>
+      <ul class="pl-ticks">
+        <li>Resume</li>
+        <li>Technical Skills</li>
+        <li>Interview Confidence</li>
+      </ul>
+      <a href="{% url 'contact' %}" class="pl-btn pl-btn--navy">Talk to CSC &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- BE READY -->
+<section class="pl-sec pl-sec--slim">
+  <div class="pl-wrap">
+    <div class="pl-ready">
+      <span class="pl-eyebrow pl-eyebrow--light">PLACEMENT PREPARATION</span>
+      <h2>Be Ready. Be Confident.</h2>
+      <ul>
+        <li>Technical Skills</li>
+        <li>Communication</li>
+        <li>Professional Etiquette</li>
+        <li>Resume</li>
+        <li>Interview Practice</li>
+        <li>Career Awareness</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECTING -->
+<section class="pl-sec">
+  <div class="pl-wrap pl-connect">
+    <div class="pl-connect__text">
+      <span class="pl-eyebrow">OPPORTUNITY CONNECTION</span>
+      <h2>Connecting Preparation With Opportunity</h2>
+      <p>CSC helps learners understand their career options and prepare for opportunities that align with their skills, interests and learning journey.</p>
+      <a href="{% url 'career' %}" class="pl-btn pl-btn--navy">Explore Careers &rarr;</a>
+    </div>
+
+    <div class="pl-map">
+      <div class="pl-student">
+        <span class="pl-student__ico"><i><i class="fa-solid fa-user-graduate"></i></i></span>
+        <b>Student</b>
+      </div>
+      <span class="pl-map__arrow">&rarr;</span>
+      <ul class="pl-nodes">
+        <li><span><i><i class="fa-solid fa-chart-simple"></i></i></span>Skills</li>
+        <li><span><i><i class="fa-regular fa-newspaper"></i></i></span>Resume</li>
+        <li><span><i><i class="fa-solid fa-calendar-days"></i></i></span>Interview</li>
+        <li class="pl-nodes__end"><span><i><i class="fa-solid fa-desktop"></i></i></span>Workplace</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="pl-cta">
+  <div class="pl-wrap">
+    <h2>Your Next Opportunity Starts With Preparation</h2>
+    <p>Learn the skills. Build your confidence. Prepare for your career.</p>
+    <div class="pl-cta__btns">
+      <a href="{% url 'courses' %}" class="pl-btn pl-btn--yellow">Explore Courses &rarr;</a>
+      <a href="{% url 'contact' %}" class="pl-btn pl-btn--outline">Contact CSC</a>
+    </div>
+  </div>
+</section>
+
+</div>
+{% endblock %}

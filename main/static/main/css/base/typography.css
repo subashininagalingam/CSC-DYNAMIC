@@ -1,0 +1,14 @@
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--ink); line-height: 1.12; margin: 0 0 .5em; letter-spacing: -.01em; font-weight: 700; }
+h1 { font-size: var(--fs-3xl); font-weight: 800; letter-spacing: -.02em; }
+h2 { font-size: var(--fs-2xl); font-weight: 800; letter-spacing: -.015em; }
+h3 { font-size: var(--fs-lg); }
+h4 { font-size: var(--fs-md); }
+p { margin: 0 0 1em; }
+.lead { font-size: var(--fs-lg); color: var(--muted); max-width: 62ch; }
+.muted { color: var(--muted); }
+.center { text-align: center; }
+.center .lead { margin-inline: auto; }
+.on-dark, .on-dark h1, .on-dark h2, .on-dark h3, .on-dark h4 { color: #fff; }
+.on-dark p, .on-dark li { color: rgba(255,255,255,.84); }
+.on-dark .lead { color: rgba(255,255,255,.78); }
+.on-dark a:not(.btn) { color: var(--sun-400); }

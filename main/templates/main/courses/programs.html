@@ -1,0 +1,92 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Computer Courses in Chennai - Full Stack, AI, Tally, MS Office | CSC Anna Nagar{% endblock %}
+{% block meta_description %}Explore all CSC programmes: Full Stack (Java, Python, PHP, MERN), AI & Data Science, Data Analytics, Python, Java, .NET, TallyPrime, MS Office and Advanced Excel. Full syllabus, eligibility and projects.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/programs.css' %}">{% endblock %}
+{% block json_ld %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"CSC programmes","itemListElement":[
+{% for p in programs %}{"@type":"ListItem","position":{{ forloop.counter }},"name":"{{ p.name|escapejs }}","url":"{{ site_url }}{% url 'program_detail' p.slug %}"}{% if not forloop.last %},{% endif %}{% endfor %}]}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><a href="{% url 'courses' %}">Courses</a><i class="fa-solid fa-chevron-right"></i><span>Programmes</span></nav>
+    <span class="kicker">Prospectus 2026</span>
+    <h1>Programmes built for careers</h1>
+    <p>{{ programs|length }} programmes with full syllabus, eligibility and projects. An ISO 9001 : 2015 certified institution.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prog-tools">
+      <div class="field" style="margin:0;flex:1;min-width:240px"><label class="sr-only" for="progSearch">Search programmes</label><input type="text" id="progSearch" placeholder="Search programmes, e.g. Python, Tally, Java" autocomplete="off"></div>
+      <div class="radio-group" role="group" aria-label="Filter by category">
+        {% for c in categories %}<button type="button" class="filter-pill{% if forloop.first %} active{% endif %}" data-cat="{{ c }}">{{ c }}</button>{% endfor %}
+      </div>
+    </div>
+
+    <div class="grid grid--3" id="progGrid">
+      {% for p in programs %}
+      <article class="prog card card--lift" data-cat="{{ p.category }}" data-search="{{ p.name }} {{ p.code }} {{ p.category }} {{ p.level }} {% for t in p.tools %}{{ t }} {% endfor %}">
+        <div class="prog__top"><span class="badge">{{ p.code }}</span><span class="badge badge--soft">{{ p.level }}</span></div>
+        <h2 class="prog__name"><a href="{% url 'program_detail' p.slug %}">{{ p.name }}</a></h2>
+        <p class="prog__aud"><i class="fa-solid fa-users"></i> {{ p.audience }}</p>
+        <ul class="chips">{% for t in p.tools|slice:":5" %}<li class="chip">{{ t }}</li>{% endfor %}</ul>
+        <div class="prog__foot"><span class="muted">{{ p.module_count }} modules</span><a class="link-arrow" href="{% url 'program_detail' p.slug %}">View syllabus <i class="fa-solid fa-arrow-right"></i></a></div>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="empty" id="progEmpty" hidden><h3>No programmes match your search</h3><p>Try a different keyword or category.</p></div>
+  </div>
+</section>
+
+<section class="section section--indigo on-dark">
+  <div class="wrap">
+    <div class="section-head"><h2>Why students choose CSC</h2><p>{{ credentials_intro }}</p></div>
+    <ol class="journey">
+      {% for year, big, label in journey %}<li><span>{{ year }}</span><b>{{ big }}</b>{% if label %}<small>{{ label }}</small>{% endif %}</li>{% endfor %}
+      <li><span>Every year</span><b>1 Lakh</b><small>Students trained</small></li>
+    </ol>
+    <div class="split" style="align-items:start;margin-top:2.5rem">
+      <div>
+        <h3 style="color:#fff">Credentials of CSC Computer Education</h3>
+        <ul class="ticks">{% for c in credentials %}<li>{{ c }}</li>{% endfor %}</ul>
+        <ul class="chips">{% for g in govt_trained %}<li class="chip">{{ g }}</li>{% endfor %}</ul>
+      </div>
+      <div>
+        <h3 style="color:#fff">Educational partners</h3>
+        <ul class="ticks">{% for p in partners %}<li>{{ p }}</li>{% endfor %}</ul>
+        <a class="btn btn--primary" href="{% url 'registration' %}">Register for SAT 2026</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var cards = [].slice.call(document.querySelectorAll('#progGrid .prog')), q = document.getElementById('progSearch'), cat = 'All', empty = document.getElementById('progEmpty');
+  function run() {
+    var s = (q.value || '').trim().toLowerCase(), n = 0;
+    cards.forEach(function (c) {
+      var show = (cat === 'All' || c.dataset.cat === cat) && c.dataset.search.toLowerCase().indexOf(s) !== -1;
+      c.hidden = !show; if (show) n++;
+    });
+    empty.hidden = n !== 0;
+  }
+  q.addEventListener('input', run);
+  [].forEach.call(document.querySelectorAll('.filter-pill'), function (b) {
+    b.addEventListener('click', function () {
+      cat = b.dataset.cat;
+      [].forEach.call(document.querySelectorAll('.filter-pill'), function (x) { x.classList.toggle('active', x === b); });
+      run();
+    });
+  });
+})();
+</script>
+{% endblock %}

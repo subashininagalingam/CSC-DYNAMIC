@@ -1,0 +1,12 @@
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+.member { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; transition: transform .2s var(--ease), box-shadow .2s var(--ease); display: flex; flex-direction: column; }
+.member:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.member__photo { aspect-ratio: 1/1; background: var(--indigo-100); position: relative; overflow: hidden; border-bottom: 4px solid var(--sun-400); }
+.member__photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.member__ph { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-size: 5rem; font-weight: 800; color: var(--indigo-700); background: linear-gradient(135deg, var(--indigo-100), var(--sun-100)); }
+.member__body { padding: 1.25rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; position: relative; }
+.member__body h3 { margin: 0; }
+.member__role { color: var(--indigo-600); font-weight: 700; margin: 0; font-size: var(--fs-sm); }
+.member__bio { color: var(--muted); font-size: var(--fs-sm); margin: 0; }
+.member__in { margin-top: auto; align-self: flex-start; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--indigo-700); color: #fff; text-decoration: none; }
+.member__in:hover { background: var(--sun-400); color: var(--indigo-900); }

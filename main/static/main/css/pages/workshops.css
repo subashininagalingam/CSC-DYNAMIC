@@ -1,0 +1,12 @@
+.meta { list-style: none; padding: 0; margin: 0; font-size: var(--fs-sm); color: var(--muted); display: grid; gap: .15rem; }
+.date-tag { position: absolute; left: 12px; top: 12px; background: var(--sun-400); border: 2px solid var(--indigo-700); border-radius: var(--r-md); text-align: center; padding: .3rem .7rem; line-height: 1.1; color: var(--indigo-900); }
+.date-tag b { display: block; font-family: var(--font-display); font-size: 1.4rem; } .date-tag span { font-size: var(--fs-xs); font-weight: 800; text-transform: uppercase; }
+.moments { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 200px; gap: .75rem; }
+.shot { position: relative; border-radius: var(--r-md); overflow: hidden; display: block; }
+.shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); } .shot:hover img { transform: scale(1.05); }
+.shot--big { grid-column: span 2; grid-row: span 2; }
+.shot__cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem 1rem .9rem; background: linear-gradient(transparent, rgba(14,11,51,.9)); color: #fff; display: grid; }
+.shot__cap small { color: var(--sun-400); font-weight: 700; }
+@media (max-width: 720px) { .moments { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; } }
+.date-big { text-align: center; background: var(--indigo-50); border-radius: var(--r-md); padding: 1rem; margin: 1rem 0; display: grid; }
+.date-big b { font-family: var(--font-display); font-size: 3rem; color: var(--indigo-700); line-height: 1; }

@@ -1,0 +1,67 @@
+{% load static %}
+<footer class="site-footer">
+  <div class="footer-cta">
+    <div class="wrap">
+      <div>
+        <h2>Your IT career starts here.</h2>
+        <p>Register for SAT 2026 and win up to 75% scholarship on your course fees.</p>
+      </div>
+      <a class="btn btn--dark btn--lg" href="{% url 'registration' %}">Register Now <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <div class="wrap footer-main">
+    <div class="footer-brand">
+      <img src="{% static 'main/images/csc.webp' %}" alt="CSC Computer Software College" width="96" height="56" loading="lazy">
+      <h3>CSC Anna Nagar</h3>
+      <p>We provide high-quality training with real-time practical sessions, helping students build strong careers in IT and software development.</p>
+    </div>
+
+    <nav aria-label="Quick links">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About Us</a></li>
+        <li><a href="{% url 'courses' %}">Courses</a></li>
+        <li><a href="{% url 'offers' %}">Offers</a></li>
+        <li><a href="{% url 'team' %}">Our Team</a></li>
+        <li><a href="{% url 'career' %}">Careers</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+    </nav>
+
+    <nav aria-label="Popular programmes">
+      <h3>Popular Programmes</h3>
+      <ul class="footer-links">
+        <li><a href="{% url 'program_detail' 'hdfd' %}">Full Stack Developer</a></li>
+        <li><a href="{% url 'program_detail' 'dfpd' %}">Full Stack Python</a></li>
+        <li><a href="{% url 'program_detail' 'adad' %}">AI &amp; Data Science</a></li>
+        <li><a href="{% url 'program_detail' 'tallyprime-cca' %}">TallyPrime (CCA)</a></li>
+        <li><a href="{% url 'program_detail' 'dca-tally' %}">DCA Tally</a></li>
+        <li><a href="{% url 'programs' %}">All programmes</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h3>Contact</h3>
+      <address class="footer-contact" style="font-style:normal">
+        <p><i class="fa-solid fa-envelope"></i><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+        <p><i class="fa-solid fa-phone"></i><a href="tel:{{ site.phone_link }}">{{ site.phone }}</a></p>
+        <p><i class="fa-solid fa-location-dot"></i><a href="{{ site.map_link }}" target="_blank" rel="noopener noreferrer">{{ site.address_inline }}</a></p>
+      </address>
+      <div class="footer-social">
+        <a href="{{ site.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="{{ site.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="{{ site.whatsapp }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="wrap">
+      <p>&copy; {% now "Y" %} CSC Anna Nagar. All rights reserved.</p>
+      <p>Developed by <a href="https://www.errors2experts.com/" target="_blank" rel="noopener">Errors2Experts</a></p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Course Registration | CSC{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}">{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <span class="kicker">Course Registration</span>
+    <h1>Student Registration</h1>
+    <p>Fill in your details to reserve your seat and continue to payment.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap reg-layout">
+    <aside class="card card--tint summary">
+      <span class="badge">Selected Course</span>
+      <h2 style="font-size:var(--fs-xl);margin-top:1rem">{{ course.name }}</h2>
+      <div class="fee"><span>Course Fee</span><strong>&#8377;{{ course.offer_fee }}</strong></div>
+      <ul class="ticks">
+        <li>Practical, hands-on training</li><li>Industry-ready projects</li><li>Placement support</li><li>Certificate on completion</li>
+      </ul>
+      <a href="javascript:history.back()" class="link-arrow">&larr; Back to course details</a>
+    </aside>
+    <div class="card card--outline">
+      <h2 style="font-size:var(--fs-xl)">Your Details</h2>
+      <p class="muted">Please enter correct details. We will use them to contact you.</p>
+      <form method="post" class="form-stack" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn--primary btn--block btn--lg">Continue to Payment <i class="fa-solid fa-arrow-right"></i></button>
+      </form>
+      <p class="form-note"><i class="fa-solid fa-user-lock"></i> Your information is safe with us.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}<script src="{% static 'main/js/form-validation.js' %}"></script>{% endblock %}

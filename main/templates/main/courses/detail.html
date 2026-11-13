@@ -1,0 +1,128 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}{{ course.name }} | CSC Anna Nagar{% endblock %}
+{% block meta_description %}{{ course.name }} at CSC Anna Nagar, Chennai - {{ course.duration }}. {{ course.description|truncatechars:120 }}{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}">{% endblock %}
+{% block json_ld %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Course","name":"{{ course.name|escapejs }}","description":"{{ course.description|escapejs }}",
+"provider":{"@type":"EducationalOrganization","name":"{{ site.full_name }}","sameAs":"{{ site_url }}/"},
+"offers":{"@type":"Offer","price":"{{ course.offer_fee|floatformat:0 }}","priceCurrency":"INR","availability":"https://schema.org/InStock"}}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap hero-split">
+    <div>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><a href="{% url 'courses' %}">Courses</a><i class="fa-solid fa-chevron-right"></i><span>{{ course.name }}</span></nav>
+      <span class="kicker"><i class="fa-solid fa-award"></i> Professional Course</span>
+      <h1>{{ course.name }}</h1>
+      <p>{{ course.description|truncatewords:40 }}</p>
+      <ul class="chips" style="margin:1.25rem 0">
+        <li class="chip"><i class="fa-solid fa-laptop-code"></i> Practical Training</li>
+        <li class="chip"><i class="fa-solid fa-diagram-project"></i> Project-Based Learning</li>
+        <li class="chip"><i class="fa-solid fa-briefcase"></i> Industry-Relevant Skills</li>
+      </ul>
+      <div class="page-hero__actions" style="margin-top:0">
+        <a href="{% url 'book_course' course.id %}" class="btn btn--primary">Book This Course <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="{% url 'contact' %}" class="btn btn--outline-light">Enquire Now</a>
+      </div>
+    </div>
+    <div class="hero-photo">{% if course.image %}<img src="{{ course.image.url }}" alt="{{ course.name }}">{% else %}<img src="{% static 'main/images/sample.webp' %}" alt="{{ course.name }}">{% endif %}</div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="facts" aria-label="Course at a glance">
+      <div><small>Duration</small><strong><i class="fa-regular fa-clock"></i> {{ course.duration }}</strong></div>
+      <div><small>Learning</small><strong><i class="fa-solid fa-bullseye"></i> Practical Training</strong></div>
+      <div><small>Mode</small><strong><i class="fa-solid fa-building-columns"></i> Contact Institute</strong></div>
+      <div><small>Offer Fee</small><strong>&#8377;{{ course.offer_fee|floatformat:0 }} {% if course.original_fee > course.offer_fee %}<del>&#8377;{{ course.original_fee|floatformat:0 }}</del>{% endif %}</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap detail-layout">
+  <div>
+    <nav class="tabs" aria-label="Course sections"><a href="#overview" class="active">Overview</a><a href="#highlights">Highlights</a><a href="#learn">What You'll Learn</a><a href="#roadmap">Roadmap</a></nav>
+
+    <section class="card block" id="overview">
+      <h2><i class="fa-solid fa-circle-info"></i> About This Course</h2>
+      <p>{{ course.description }}</p>
+      <p>Learn through practical sessions, hands-on exercises and projects designed to help you develop useful industry skills.</p>
+    </section>
+
+    <section class="card block" id="highlights">
+      <h2><i class="fa-solid fa-star"></i> Course Highlights</h2>
+      <ul class="ticks" style="margin:0">
+        {% if course.highlights %}{% for item in course.highlights.splitlines %}{% if item %}<li>{{ item }}</li>{% endif %}{% endfor %}
+        {% else %}<li>Practical Training</li><li>Hands-on Projects</li><li>Technical Guidance</li><li>Career Preparation</li>{% endif %}
+      </ul>
+    </section>
+
+    <section class="card block" id="learn">
+      <h2><i class="fa-solid fa-graduation-cap"></i> What You'll Learn</h2>
+      <ol class="learn-list">
+        <li>Fundamentals and Core Concepts</li><li>Essential Tools and Technologies</li><li>Practical Exercises and Assignments</li><li>Real-World Project Development</li><li>Final Project and Career Preparation</li>
+      </ol>
+    </section>
+
+    <section class="card block" id="roadmap">
+      <h2><i class="fa-solid fa-route"></i> Course Roadmap</h2>
+      <p class="muted">Every step takes you closer to your goal.</p>
+      {% if course.roadmap %}
+      <ol class="timeline">
+        {% for step in course.get_roadmap_steps %}<li><span>{{ forloop.counter|stringformat:"02d" }}</span><div><small>STEP {{ forloop.counter|stringformat:"02d" }}</small><h3>{{ step }}</h3></div></li>{% endfor %}
+        <li class="finish"><span><i class="fa-solid fa-flag-checkered"></i></span><div><small>COMPLETED</small><h3>Course Completed! You're ready for the next step in your career.</h3></div></li>
+      </ol>
+      {% else %}<p class="muted">Course roadmap will be updated soon.</p>{% endif %}
+    </section>
+  </div>
+
+  <aside class="detail-aside">
+    <div class="card card--outline price-card">
+      <small class="muted">COURSE INVESTMENT</small>
+      <h2 style="font-size:var(--fs-lg)">{{ course.name }}</h2>
+      <span class="muted">Offer Fee</span>
+      <div class="price"><strong>&#8377;{{ course.offer_fee|floatformat:0 }}</strong> <del>&#8377;{{ course.original_fee|floatformat:0 }}</del></div>
+      {% if course.offer_label %}<span class="badge">{{ course.offer_label }}</span>{% elif course.original_fee > course.offer_fee %}<span class="badge">{{ course.discount_percent }}% OFF</span>{% endif %}
+      <ul class="fact-list">
+        <li><span><i class="fa-regular fa-clock"></i> Duration</span><strong>{{ course.duration }}</strong></li>
+        <li><span><i class="fa-solid fa-bullseye"></i> Learning</span><strong>Practical Training</strong></li>
+        <li><span><i class="fa-solid fa-laptop-code"></i> Mode</span><strong>Contact Institute</strong></li>
+      </ul>
+      <a href="{% url 'book_course' course.id %}" class="btn btn--primary btn--block">Book This Course <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="{% url 'contact' %}" class="btn btn--ghost btn--block" style="margin-top:.6rem">Enquire Now</a>
+      <p class="form-note">Have questions? Contact our team for course details and batch information.</p>
+    </div>
+    <div class="card help-card">
+      <span class="icon-chip"><i class="fa-solid fa-headset"></i></span>
+      <h3>Need Help?</h3><p>Our team can help you choose the right course.</p>
+      <a href="tel:{{ site.phone_link }}"><i class="fa-solid fa-phone"></i> {{ site.phone_short }}</a>
+    </div>
+  </aside>
+</div>
+
+<section class="section section--indigo on-dark">
+  <div class="wrap cta-row">
+    <div><h2>Ready to Start Learning?</h2><p>Take the next step towards developing your skills.</p></div>
+    <a href="{% url 'book_course' course.id %}" class="btn btn--primary btn--lg">Book Your Course <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<div class="mobilebar"><div><small>Offer Fee</small><strong>&#8377;{{ course.offer_fee|floatformat:0 }}</strong></div><a href="{% url 'book_course' course.id %}" class="btn btn--primary btn--sm">Book Now</a></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var links = document.querySelectorAll('.tabs a'), map = {};
+  links.forEach(function (a) { var id = a.getAttribute('href').slice(1), el = document.getElementById(id); if (el) map[id] = { link: a, el: el }; });
+  if (!('IntersectionObserver' in window)) return;
+  var obs = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting && map[en.target.id]) { links.forEach(function (l) { l.classList.remove('active'); }); map[en.target.id].link.classList.add('active'); } }); }, { rootMargin: '-30% 0px -60% 0px' });
+  Object.keys(map).forEach(function (id) { obs.observe(map[id].el); });
+});
+</script>
+{% endblock %}

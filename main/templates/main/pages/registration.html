@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}SAT 2026 Scholarship Registration - Up to 75% | CSC Anna Nagar{% endblock %}
+{% block meta_description %}Register online for the CSC SAT 2026 Scholarship Aptitude Test and win up to 75% scholarship on computer course fees. Open for students from Below 10th to PG.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}"><link rel="stylesheet" href="{% static 'main/css/pages/content.css' %}">{% endblock %}
+
+{% block content %}
+<section class="section reg-page">
+  <div class="wrap--narrow">
+    <header class="center" style="margin-bottom:2rem">
+      <span class="badge">CSC Scholarship Exam</span>
+      <h1 style="font-size:var(--fs-2xl);margin-top:1rem">SAT 2026 <mark class="hl">75%</mark> Scholarship<br>Registration Form</h1>
+      <p class="lead">Fill in your details below to register for the Scholarship Aptitude Test.</p>
+    </header>
+    <div class="card card--outline" style="padding:clamp(1.25rem,4vw,2.25rem)">
+      {% include 'main/partials/sat_form.html' %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}<script src="{% static 'main/js/form-validation.js' %}"></script>{% endblock %}

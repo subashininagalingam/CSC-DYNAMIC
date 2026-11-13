@@ -1,0 +1,34 @@
+.field { margin-bottom: 1rem; }
+.field label, .field .label, .form-stack label { display: block; font-weight: 700; font-size: var(--fs-sm); color: var(--ink); margin-bottom: .35rem; }
+.field .req, label span.required { color: var(--err); }
+input[type=text], input[type=email], input[type=tel], input[type=number], input[type=file], select, textarea,
+.form-input, .b-input { width: 100%; padding: .8rem .95rem; border: 1.5px solid var(--line); border-radius: var(--r-md); background: #fff; color: var(--ink); font-size: var(--fs-md); transition: border-color .15s, box-shadow .15s; }
+textarea { resize: vertical; min-height: 110px; }
+input:hover, select:hover, textarea:hover { border-color: var(--indigo-200); }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--indigo-500); box-shadow: 0 0 0 4px rgba(79,70,200,.16); }
+input::placeholder, textarea::placeholder { color: #9A98B8; }
+input[readonly] { background: var(--mist); }
+.form-invalid { border-color: var(--err) !important; box-shadow: 0 0 0 3px var(--err-bg) !important; }
+.form-inline-error, .field-error { color: var(--err); font-size: var(--fs-xs); margin: .3rem 0 0; font-weight: 600; min-height: 0; }
+.form-inline-error:empty, .field-error:empty { display: none; }
+.field-error { display: block; }
+.field-hint { font-size: var(--fs-xs); color: var(--muted); margin: .35rem 0 0; }
+.field-hint b { color: var(--indigo-700); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+@media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+.radio-group { display: flex; flex-wrap: wrap; gap: .6rem; }
+.radio-pill { position: relative; }
+.radio-pill input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.radio-pill span { display: inline-block; padding: .55rem 1.1rem; border: 1.5px solid var(--line); border-radius: var(--r-pill); font-weight: 600; font-size: var(--fs-sm); background: #fff; }
+.radio-pill input:checked + span { background: var(--indigo-700); color: #fff; border-color: var(--indigo-700); }
+.radio-pill input:focus-visible + span { outline: 3px solid var(--indigo-500); outline-offset: 2px; }
+.form-note { font-size: var(--fs-xs); color: var(--muted); margin: .9rem 0 0; }
+.form-errors { background: var(--err-bg); border: 1px solid #F3B9B5; color: var(--err); border-radius: var(--r-md); padding: .8rem 1rem .8rem 2rem; margin-bottom: 1rem; font-size: var(--fs-sm); }
+.form-errors li { margin: .15rem 0; }
+
+/* Django {{ form.as_p }} output */
+.form-stack p { margin: 0 0 1rem; }
+.form-stack .errorlist { list-style: none; padding: 0; margin: 0 0 .35rem; color: var(--err); font-size: var(--fs-xs); font-weight: 600; }
+.form-stack .helptext { display: block; font-size: var(--fs-xs); color: var(--muted); margin-top: .3rem; }
+.form-stack input[type=file] { padding: .6rem; background: var(--mist); }
+.form-stack ul:not(.errorlist) { list-style: none; padding: 0; }

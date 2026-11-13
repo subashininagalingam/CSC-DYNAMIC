@@ -1,0 +1,157 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Contact CSC Anna Nagar | Computer Courses Enquiry, Chennai{% endblock %}
+{% block meta_description %}Contact CSC Anna Nagar, AP-814 G Block, 1st Street, Anna Nagar, Chennai 600040. Call +91 9940909056 or WhatsApp for course enquiries, admissions, workshops and placement support.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/contact.css' %}">{% endblock %}
+{% block json_ld %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What courses does CSC offer?","acceptedAnswer":{"@type":"Answer","text":"CSC offers Full Stack, Python, Java, .NET, AI and Data Science, Data Analytics, TallyPrime, MS Office and Advanced Excel programmes."}},
+{"@type":"Question","name":"Can I visit CSC before registering?","acceptedAnswer":{"@type":"Answer","text":"Yes. Visit CSC Anna Nagar, AP 814, G Block, 1st Street, Anna Nagar, Chennai, Monday to Saturday 9:00 AM to 7:00 PM."}},
+{"@type":"Question","name":"How can I get placement support?","acceptedAnswer":{"@type":"Answer","text":"CSC offers resume preparation, technical skills, interview practice and career guidance. Contact us to know more."}}]}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap hero-split">
+    <div>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Contact</span></nav>
+      <span class="kicker">Get In Touch</span>
+      <h1>Contact CSC Anna Nagar</h1>
+      <p>Have a question about our courses? Want to book a free demo? We'd love to hear from you — reach out and we'll get back to you quickly.</p>
+    </div>
+    <div class="hero-photo"><img src="{% static 'main/images/intro.jpeg' %}" alt="Contact CSC" width="1000" height="625"></div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:1.5rem"><span class="badge">Contact CSC</span><h2 style="margin-top:1rem">Let's Start a Conversation</h2><p>Have a question about our courses, workshops, admissions or career support? Our team is here to help.</p></div>
+    <div class="grid grid--4 info-bar">
+      <div class="info"><i class="fa-solid fa-location-dot"></i><div><h3>Visit CSC</h3><a href="{{ site.map_link }}" target="_blank" rel="noopener noreferrer">Anna Nagar</a></div></div>
+      <div class="info"><i class="fa-solid fa-phone"></i><div><h3>Call Us</h3><a href="tel:{{ site.phone_link }}">{{ site.phone }}</a></div></div>
+      <div class="info"><i class="fa-solid fa-envelope"></i><div><h3>Email Us</h3><a href="mailto:{{ site.email }}">{{ site.email }}</a></div></div>
+      <div class="info"><i class="fa-brands fa-whatsapp"></i><div><h3>WhatsApp</h3><a href="https://wa.me/919940909056" target="_blank" rel="noopener noreferrer">{{ site.phone }}</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap contact-layout">
+    <div class="card card--outline">
+      <h2 style="font-size:var(--fs-xl)">Send Us a Message</h2>
+      <form method="POST" id="cscContactForm" novalidate>
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="field"><label for="name">Full Name <span class="req">*</span></label><input type="text" id="name" name="name" placeholder="Full Name" maxlength="25" autocomplete="name" oninput="validateName(this)" required><small id="nameError" class="field-error"></small></div>
+          <div class="field"><label for="email">Email Address <span class="req">*</span></label><input type="email" id="email" name="email" placeholder="Email Address" autocomplete="email" oninput="validateEmail(this)" required><small id="emailError" class="field-error"></small></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="phone">Mobile Number <span class="req">*</span></label><input type="text" id="phone" name="phone" placeholder="Enter 10 digit mobile number" inputmode="numeric" autocomplete="tel-national" oninput="validatePhone(this)" required><small id="phoneError" class="field-error"></small></div>
+          <div class="field"><label for="subject">Subject <span class="req">*</span></label>
+            <select name="subject" id="subject"><option>Course Enquiry</option><option>Workshop</option><option>Placement Support</option><option>Career</option><option>Admission / Registration</option><option>General Enquiry</option></select></div>
+        </div>
+        <div class="field"><label for="enquiry">Select Enquiry Type</label>
+          <select name="enquiry" id="enquiry"><option>Course Enquiry</option><option>Workshop</option><option>Placement Support</option><option>Career</option><option>Admission / Registration</option><option>General Enquiry</option></select></div>
+        <div class="field"><label for="message">Message <span class="req">*</span></label><textarea name="message" id="message" placeholder="Write your message here..." required></textarea></div>
+        <button type="submit" id="submitBtn" class="btn btn--primary btn--block btn--lg">Send Message <i class="fa-solid fa-arrow-right"></i></button>
+        <p class="form-note">Your information will only be used to respond to your enquiry.</p>
+      </form>
+    </div>
+
+    <div class="card card--tint help">
+      <h2 style="font-size:var(--fs-xl)">How Can We Help?</h2>
+      <div class="help-row"><span class="icon-chip"><i class="fa-solid fa-book"></i></span><div><h3>Course Enquiry</h3><p>Get information about courses and learning options</p></div></div>
+      <div class="help-row"><span class="icon-chip"><i class="fa-solid fa-user-plus"></i></span><div><h3>Admission &amp; Registration</h3><p>Get help with the registration process</p></div></div>
+      <div class="help-row"><span class="icon-chip"><i class="fa-solid fa-briefcase"></i></span><div><h3>Placement Support</h3><p>Learn about career preparation and placement support</p></div></div>
+      <div class="help-row"><span class="icon-chip"><i class="fa-solid fa-comment"></i></span><div><h3>General Enquiry</h3><p>Ask us anything about CSC</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Visit CSC</h2><p>Come and meet us to learn more about our courses, training and learning environment.</p></div>
+    <div class="visit">
+      <div class="map"><iframe title="CSC Anna Nagar on Google Maps" src="https://www.google.com/maps?q=CSC+Computer+Education,+AP-814,+G+Block,+1st+Street,+Anna+Nagar,+Chennai+600040&output=embed" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy"></iframe></div>
+      <div class="card">
+        <h3>Visit Us</h3>
+        <p>AP 814, G Block, 1st Street, near Anna Nagar Tower,<br>Metro Station, Anna Nagar, Chennai-600040.</p>
+        <h3>Opening Hours</h3>
+        <p>Mon-Sat 9:00 AM - 7:00 PM<br>Sunday-Closed</p>
+        <a class="btn btn--dark" href="{{ site.map_link }}" target="_blank" rel="noopener noreferrer">Get Directions <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--sun">
+  <div class="wrap center">
+    <h2>Need a Quick Answer?</h2>
+    <p class="lead" style="color:var(--indigo-800)">Reach out directly and our team will guide you.</p>
+    <div class="page-hero__actions" style="justify-content:center">
+      <a class="btn btn--dark btn--lg" href="tel:{{ site.phone_link }}">Call CSC</a>
+      <a class="btn btn--ghost btn--lg" href="https://wa.me/919940909056" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap--narrow">
+    <div class="section-head"><h2>Frequently Asked Questions</h2></div>
+    <div class="accordion">
+      <details><summary>What courses does CSC offer?</summary><div class="acc-body">Programmes in Full Stack (Java, Python, PHP, MERN/MEAN), AI &amp; Data Science, Data Analytics, Python, Java, .NET, TallyPrime, MS Office and Advanced Excel. See the full list on our <a href="{% url 'programs' %}">programmes page</a>.</div></details>
+      <details><summary>Can I visit CSC before registering?</summary><div class="acc-body">Yes. Visit us at AP 814, G Block, 1st Street, Anna Nagar, Chennai - Monday to Saturday, 9:00 AM to 7:00 PM.</div></details>
+      <details><summary>How can I get placement support?</summary><div class="acc-body">Read about resume preparation, technical skills and interview practice on our <a href="{% url 'placement' %}">placement page</a>, or contact us and we will guide you.</div></details>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function validateName(input) {
+  var error = document.getElementById("nameError"), old = input.value;
+  var clean = old.replace(/[^A-Za-z ]/g, "").replace(/^\s+/, "").replace(/\s{2,}/g, " ").slice(0, 40);
+  input.value = clean;
+  if (old !== clean && old.length <= 40) error.textContent = "Only alphabets and spaces allowed (max 40 characters)";
+  else if (old.length > 40) error.textContent = "Maximum 40 characters allowed";
+  else error.textContent = "";
+}
+function validatePhone(input) {
+  var error = document.getElementById("phoneError"), old = input.value, clean = old.replace(/\D/g, "");
+  if (clean.length === 12 && clean.indexOf("91") === 0) clean = clean.slice(2);
+  clean = clean.slice(0, 10);
+  if (clean.length > 0 && !/^[6-9]/.test(clean)) { input.value = ""; error.textContent = "Number must start with 6, 7, 8 or 9"; return; }
+  input.value = clean;
+  if (/\D/.test(old.replace(/^\+?91/, ""))) error.textContent = "Only numbers allowed";
+  else if (clean.length > 0 && clean.length < 10) error.textContent = "Enter exactly 10 digits";
+  else error.textContent = "";
+}
+var EMAIL_REGEX = /^[A-Za-z0-9]+([._%+-][A-Za-z0-9]+)*@([A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?\.)+(com|in|org|net|edu|gov|info|biz|io|co|us|uk|ai)$/i;
+function validateEmail(input) {
+  var error = document.getElementById("emailError"), value = input.value.replace(/[^A-Za-z0-9@._%+-]/g, ""); input.value = value;
+  if (value === "") error.textContent = "";
+  else if (value.indexOf("@") === -1) error.textContent = "Email must contain @";
+  else if ((value.match(/@/g) || []).length > 1) error.textContent = "Only one @ is allowed";
+  else if (/^@/.test(value) || /^[._%+-]/.test(value)) error.textContent = "Enter letters or numbers before @";
+  else if (/@$/.test(value) || /@[^A-Za-z0-9]/.test(value)) error.textContent = "Enter your domain name after @ (e.g. gmail)";
+  else if (!/@[^@]*\.[^@]*$/.test(value)) error.textContent = "Add a dot after the domain (e.g. gmail.com)";
+  else if (!EMAIL_REGEX.test(value)) error.textContent = "Email must end with .com, .in, .co.in, .edu.in, .org, .net etc.";
+  else error.textContent = "";
+}
+document.addEventListener('DOMContentLoaded', function () {
+  var form = document.getElementById('cscContactForm'), btn = document.getElementById('submitBtn');
+  if (form) form.addEventListener('submit', function (e) {
+    var name = document.getElementById("name").value.trim(), email = document.getElementById("email").value.trim(), phone = document.getElementById("phone").value, msg = document.getElementById("message").value.trim(), ok = true;
+    if (!/^[A-Za-z ]{1,40}$/.test(name)) { document.getElementById("nameError").textContent = "Enter a valid name (alphabets and spaces only, max 40 characters)"; ok = false; }
+    if (!EMAIL_REGEX.test(email)) { document.getElementById("emailError").textContent = "Enter a valid email address"; ok = false; }
+    if (!/^[6-9][0-9]{9}$/.test(phone)) { document.getElementById("phoneError").textContent = "Enter a valid 10 digit number starting with 6, 7, 8 or 9"; ok = false; }
+    if (!msg) { document.getElementById("message").focus(); ok = false; }
+    if (!ok) { e.preventDefault(); e.stopImmediatePropagation(); }
+  });
+  if (form && btn) form.addEventListener('submit', function () { btn.textContent = 'Sending...'; btn.disabled = true; });
+});
+</script>
+{% endblock %}

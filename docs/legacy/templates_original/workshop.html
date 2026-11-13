@@ -1,0 +1,112 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Workshops & Events | CSC - Computer Software College{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/css/workshop.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="wk">
+<div class="wk-layout">
+
+  <!-- ================= LEFT: HERO + UPCOMING ================= -->
+  <div class="wk-left">
+
+    <!-- HERO -->
+    <section class="wk-hero">
+      <div class="wk-hero__img">
+        <img src="{% static 'main/images/python.webp' %}" alt="CSC workshop session" onerror="this.style.display='none'">
+      </div>
+      <div class="wk-hero__text">
+        <span class="wk-eyebrow">WORKSHOPS &amp; EVENTS</span>
+        <h1>Learn. Experience. Build.</h1>
+        <p>Explore workshops and hands-on learning experiences designed to connect students with practical technology.</p>
+        <a href="{% url 'courses' %}" class="wk-btn wk-btn--navy">Explore Courses</a>
+      </div>
+    </section>
+
+    <!-- UPCOMING WORKSHOPS -->
+    <section class="wk-upcoming" id="upcoming">
+      <h2 class="wk-title">Upcoming Workshops</h2>
+
+      <div class="wk-cards">
+        {% for w in upcoming %}
+        <article class="wk-card">
+          <div class="wk-card__img">
+            {% if w.image %}<img src="{{ w.image.url }}" alt="{{ w.title }}">{% endif %}
+            <div class="wk-date"><b>{{ w.date|date:"d" }}</b><span>{{ w.date|date:"M" }}</span></div>
+            <span class="wk-tag">UPCOMING</span>
+          </div>
+          <div class="wk-card__body">
+            <span class="wk-label">UPCOMING</span>
+            <h3>{{ w.title }}</h3>
+            <ul>
+              <li>Date: {{ w.date|date:"d M Y" }}</li>
+              <li>Time: {{ w.start_time|time:"h:i A" }} – {{ w.end_time|time:"h:i A" }}</li>
+              <li>Mode: {{ w.mode }}</li>
+            </ul>
+            <p>{{ w.short_description }}</p>
+          </div>
+          <div class="wk-card__foot">
+            <a href="{% url 'workshop_detail' w.id %}" class="wk-link">View Workshop &rarr;</a>
+            {% if w.seats_left == 0 %}
+              <span class="wk-full">Seats Full</span>
+            {% else %}
+              <a href="{% url 'workshop_register' w.id %}" class="wk-btn wk-btn--yellow wk-btn--sm">Register Now</a>
+            {% endif %}
+          </div>
+        </article>
+        {% empty %}
+        <p class="wk-empty wk-empty--wide">No upcoming workshops right now. Please check back soon.</p>
+        {% endfor %}
+      </div>
+    </section>
+  
+
+  <!-- ================= RIGHT: MOMENTS + CTA ================= -->
+  <aside class="wk-right">
+
+    <section class="wk-moments" id="moments">
+      <h2 class="wk-title">Workshop Moments</h2>
+      <p class="wk-sub">Highlights from our workshops and learning experiences.</p>
+
+      {% if workshop %}
+      <div class="wk-gallery">
+        {% for w in workshop %}
+          {% if forloop.counter <= 9 %}
+            {% if w.image %}
+            <a href="{{ w.image.url }}" target="_blank" rel="noopener" class="wk-shot{% if forloop.first %} wk-shot--big{% endif %}">
+              <img src="{{ w.image.url }}" alt="{{ w.title|default:'Workshop photo' }}" loading="lazy">
+              {% if forloop.first %}
+              <span class="wk-shot__cap">
+                <small>WORKSHOP HIGHLIGHT</small>
+                <b>{{ w.title|default:"Hands-on Learning" }}</b>
+              </span>
+              {% else %}
+              <span class="wk-shot__view">&#128269; View</span>
+              {% endif %}
+            </a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="wk-empty">Workshop photos will appear here once they are added.</p>
+      {% endif %}
+    </section>
+
+    <section class="wk-join">
+      <h2>Want to Join Our Next Workshop?</h2>
+      <p>Stay connected with CSC for upcoming workshops and learning opportunities.</p>
+      <a href="{% url 'contact' %}" class="wk-btn wk-btn--yellow">Contact Us &rarr;</a>
+    </section>
+
+  </aside>
+  </div>
+  
+
+</div>
+</div>
+{% endblock %}

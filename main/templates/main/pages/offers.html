@@ -1,0 +1,123 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Offers & Scholarships | SAT 2026 up to 75% | CSC Anna Nagar{% endblock %}
+{% block meta_description %}All current offers at CSC Anna Nagar: SAT 2026 scholarship up to 75%, discounted course fees and special offers on computer courses in Chennai.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/offers.css' %}">{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Offers</span></nav>
+    <span class="kicker">Offers</span>
+    <h1>Every offer at CSC Anna Nagar, in one place</h1>
+    <p>Scholarships, course fee offers and special deals. Pick the one that suits you and register today.</p>
+  </div>
+</section>
+
+<!-- SAT scholarship -->
+<section class="section">
+  <div class="wrap">
+    <div class="feature-offer">
+      <div class="feature-offer__copy">
+        <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Limited Scholarship Offer</span>
+        <h2 class="sat-title"><span class="sat-title__pre">SAT 2026</span><span class="sat-title__big"><b>75%</b> Scholarship</span></h2>
+        <p class="lead">Take the Scholarship Aptitude Test and get up to 75% off on your course fees at CSC Anna Nagar.</p>
+        <ul class="ticks">
+          <li>Open for students from Below 10th to PG</li>
+          <li>Choose your preferred exam timing</li>
+          <li>Quick online registration</li>
+          <li>Download your admit card with your mobile number</li>
+        </ul>
+        <div class="page-hero__actions" style="margin-top:0">
+          <a href="{% url 'registration' %}" class="btn btn--primary btn--lg">Register Now <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="{% url 'contact' %}" class="btn btn--ghost btn--lg">Have questions? Contact us</a>
+        </div>
+      </div>
+      <div class="feature-offer__video">
+        <div class="video-frame">
+          <video id="offerVideo" autoplay muted loop playsinline preload="metadata"><source src="{% static 'main/videos/sat-offer.mp4' %}" type="video/mp4"></video>
+          <button type="button" class="video-frame__btn" data-video-sound="#offerVideo"><i class="fa-solid fa-volume-xmark"></i> Tap to unmute</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How SAT works -->
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head"><h2>How to claim the SAT scholarship</h2></div>
+    <ol class="steps">
+      <li><b>1</b><h3>Register online</h3><p>Fill in the quick registration form with your details.</p></li>
+      <li><b>2</b><h3>Choose your exam timing</h3><p>Morning, afternoon or evening - pick what suits you.</p></li>
+      <li><b>3</b><h3>Download your admit card</h3><p>Use the mobile number you registered with.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- Course fee offers -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Course fee offers</h2><p>Courses currently available at an offer fee.</p></div>
+    {% if course_offers %}
+    <div class="grid grid--3">
+      {% for c in course_offers %}
+      <article class="media-card">
+        <div class="media-card__img">
+          {% if c.image %}<img src="{{ c.image.url }}" alt="{{ c.name }}" loading="lazy">{% else %}<img src="{% static 'main/images/sample.webp' %}" alt="{{ c.name }}" loading="lazy">{% endif %}
+          <span class="off-ribbon">{% if c.offer_label %}{{ c.offer_label }}{% else %}{{ c.discount_percent }}% OFF{% endif %}</span>
+        </div>
+        <div class="media-card__body">
+          <span class="badge badge--soft">{{ c.category }}</span>
+          <h3>{{ c.name }}</h3>
+          <p>{{ c.duration }} &middot; {{ c.mode }} &middot; {{ c.level }}</p>
+          <div class="price"><strong>&#8377;{{ c.offer_fee|floatformat:0 }}</strong> <del>&#8377;{{ c.original_fee|floatformat:0 }}</del></div>
+          <div class="media-card__foot" style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <a class="btn btn--dark btn--sm" href="{% url 'book_course' c.id %}">Book Now</a>
+            <a class="btn btn--ghost btn--sm" href="{% url 'course_detail' c.id %}">View Details</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty"><h3>No course fee offers right now</h3><p>New offers are added regularly. Register for SAT 2026 above or <a href="{% url 'contact' %}">contact us</a> for the latest deals.</p></div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Special offers (added from admin) -->
+{% if special_offers %}
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Special offers</h2></div>
+    <div class="grid grid--2">
+      {% for o in special_offers %}
+      <article class="special-offer">
+        {% if o.image %}<img src="{{ o.image.url }}" alt="{{ o.title }}" loading="lazy">{% endif %}
+        <div class="special-offer__body">
+          {% if o.badge %}<span class="badge">{{ o.badge }}</span>{% endif %}
+          <h3>{{ o.title }}</h3>
+          {% if o.highlight %}<p class="special-offer__hl">{{ o.highlight }}</p>{% endif %}
+          <p>{{ o.description|linebreaksbr }}</p>
+          {% if o.valid_until %}<p class="muted"><i class="fa-regular fa-clock"></i> Valid until {{ o.valid_until|date:"d M Y" }}</p>{% endif %}
+          <a class="btn btn--dark btn--sm" href="{% if o.button_url %}{{ o.button_url }}{% else %}{% url 'contact' %}{% endif %}">{{ o.button_text|default:"Enquire Now" }}</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section section--indigo on-dark">
+  <div class="wrap center">
+    <h2>Not sure which offer is right for you?</h2>
+    <p class="lead">Talk to our team and we will help you choose.</p>
+    <div class="page-hero__actions" style="justify-content:center">
+      <a class="btn btn--primary" href="{% url 'contact' %}">Contact CSC</a>
+      <a class="btn btn--outline-light" href="{{ site.whatsapp }}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

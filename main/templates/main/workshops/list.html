@@ -1,0 +1,68 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Workshops & Events | CSC - Computer Software College{% endblock %}
+{% block meta_description %}Upcoming workshops and events at CSC Anna Nagar, Chennai - hands-on learning experiences that connect students with practical technology.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}"><link rel="stylesheet" href="{% static 'main/css/pages/workshops.css' %}">{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap hero-split">
+    <div>
+      <span class="kicker">Workshops &amp; Events</span>
+      <h1>Learn. Experience. Build.</h1>
+      <p>Explore workshops and hands-on learning experiences designed to connect students with practical technology.</p>
+      <div class="page-hero__actions"><a href="{% url 'courses' %}" class="btn btn--primary">Explore Courses</a></div>
+    </div>
+    <div class="hero-photo"><img src="{% static 'main/images/python.webp' %}" alt="CSC workshop session" width="600" height="400"></div>
+  </div>
+</section>
+
+<section class="section" id="upcoming">
+  <div class="wrap">
+    <div class="section-head"><h2>Upcoming Workshops</h2></div>
+    <div class="grid grid--3">
+      {% for w in upcoming %}
+      <article class="media-card">
+        <div class="media-card__img">{% if w.image %}<img src="{{ w.image.url }}" alt="{{ w.title }}" loading="lazy">{% endif %}
+          <div class="date-tag"><b>{{ w.date|date:"d" }}</b><span>{{ w.date|date:"M" }}</span></div></div>
+        <div class="media-card__body">
+          <span class="badge">Upcoming</span>
+          <h3>{{ w.title }}</h3>
+          <ul class="meta"><li>Date: {{ w.date|date:"d M Y" }}</li><li>Time: {{ w.start_time|time:"h:i A" }} – {{ w.end_time|time:"h:i A" }}</li><li>Mode: {{ w.mode }}</li></ul>
+          <p>{{ w.short_description }}</p>
+          <div class="media-card__foot" style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">
+            <a href="{% url 'workshop_detail' w.id %}" class="link-arrow">View Workshop <i class="fa-solid fa-arrow-right"></i></a>
+            {% if w.seats_left == 0 %}<span class="badge badge--soft">Seats Full</span>{% else %}<a href="{% url 'workshop_register' w.id %}" class="btn btn--primary btn--sm">Register Now</a>{% endif %}
+          </div>
+        </div>
+      </article>
+      {% empty %}
+      <div class="empty" style="grid-column:1/-1"><h3>No upcoming workshops right now.</h3><p>Please check back soon.</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint" id="moments">
+  <div class="wrap">
+    <div class="section-head"><h2>Workshop Moments</h2><p>Highlights from our workshops and learning experiences.</p></div>
+    {% if workshop %}
+    <div class="moments">
+      {% for w in workshop %}{% if forloop.counter <= 9 %}{% if w.image %}
+      <a href="{{ w.image.url }}" target="_blank" rel="noopener" class="shot{% if forloop.first %} shot--big{% endif %}">
+        <img src="{{ w.image.url }}" alt="{{ w.title|default:'Workshop photo' }}" loading="lazy">
+        {% if forloop.first %}<span class="shot__cap"><small>Workshop Highlight</small><b>{{ w.title|default:"Hands-on Learning" }}</b></span>{% endif %}
+      </a>
+      {% endif %}{% endif %}{% endfor %}
+    </div>
+    {% else %}<div class="empty"><p>Workshop photos will appear here once they are added.</p></div>{% endif %}
+  </div>
+</section>
+
+<section class="section section--sun">
+  <div class="wrap center">
+    <h2>Want to Join Our Next Workshop?</h2>
+    <p class="lead" style="color:var(--indigo-800)">Stay connected with CSC for upcoming workshops and learning opportunities.</p>
+    <a href="{% url 'contact' %}" class="btn btn--dark btn--lg">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,446 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}CSC Anna Nagar | Computer Courses in Chennai - SAT 2026 Scholarship up to 75%{% endblock %}
+{% block meta_description %}CSC Computer Software College, Anna Nagar Chennai. Job-oriented Full Stack, Python, Java, Data Science, Tally and MS Office courses with project training and placement support. Register for SAT 2026 and win up to 75% scholarship.{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'main/css/pages/home.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= HOME SLIDER (managed in admin: Home slides) ================= -->
+{% if slides %}
+<section class="section section--tight" aria-label="Life at CSC Anna Nagar">
+  <div class="wrap">
+    <div class="hslider" data-slider data-autoplay>
+      <div class="hslider__viewport">
+        {% for item in slides %}
+        <article class="hslide{% if forloop.first %} is-active{% endif %}" aria-roledescription="slide" aria-label="Slide {{ forloop.counter }} of {{ slides|length }}">
+          <img src="{{ item.img }}" alt="" {% if not forloop.first %}loading="lazy"{% endif %}>
+          <div class="hslide__shade"></div>
+          <div class="hslide__text">
+            <span class="badge">CSC Anna Nagar</span>
+            <h2>{{ item.slide.title }}</h2>
+            {% if item.slide.subtitle %}<p>{{ item.slide.subtitle }}</p>{% endif %}
+            {% if item.slide.button_text and item.slide.button_url %}<a class="btn btn--primary" href="{{ item.slide.button_url }}">{{ item.slide.button_text }} <i class="fa-solid fa-arrow-right"></i></a>{% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      {% if slides|length > 1 %}
+      <button class="hslider__arrow hslider__arrow--prev" type="button" data-prev aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hslider__arrow hslider__arrow--next" type="button" data-next aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="hslider__dots" role="tablist" aria-label="Choose slide">
+        {% for item in slides %}<button type="button" class="hslider__dot{% if forloop.first %} is-active{% endif %}" data-dot="{{ forloop.counter0 }}" aria-label="Go to slide {{ forloop.counter }}"></button>{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ================= SAT SCHOLARSHIP OFFER (front page, no slider) ================= -->
+<section class="sat-hero" aria-labelledby="sat-title">
+  <div class="wrap sat-hero__grid">
+
+    <div class="sat-hero__copy">
+      <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Limited Scholarship Offer</span>
+      <h1 id="sat-title" class="sat-title">
+        <span class="sat-title__pre">SAT 2026</span>
+        <span class="sat-title__big"><b>75%</b> Scholarship</span>
+      </h1>
+      <p class="lead">Take the Scholarship Aptitude Test and get up to 75% off on your course fees at CSC Anna Nagar.</p>
+
+      <ul class="ticks">
+        <li>Open for students from Below 10th to PG</li>
+        <li>Choose your preferred exam timing</li>
+        <li>Quick online registration</li>
+        <li>Download your admit card with your mobile number</li>
+      </ul>
+
+      <div class="sat-hero__links">
+        <a href="{% url 'offers' %}" class="btn btn--ghost">See all offers</a>
+        <a href="{% url 'contact' %}" class="link-arrow">Have questions? Contact us <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="sat-card" id="register">
+      <h2>Register for SAT 2026</h2>
+      <p class="muted">Fill in your details to register for the Scholarship Aptitude Test.</p>
+      {% include 'main/partials/sat_form.html' with form=sat_form %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= OFFER VIDEO ================= -->
+<section class="section section--indigo on-dark sat-video">
+  <div class="wrap split">
+    <div>
+      <span class="badge">SAT 2026</span>
+      <h2 style="margin-top:1rem">SAT 2026 Scholarship Offer</h2>
+      <p class="lead">Take the Scholarship Aptitude Test and get up to 75% off on your course fees at CSC Anna Nagar.</p>
+      <a href="#register" class="btn btn--primary">Register Now <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="video-frame">
+      <video id="offerVideo" autoplay muted loop playsinline preload="metadata">
+        <source src="{% static 'main/videos/sat-offer.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button type="button" class="video-frame__btn" data-video-sound="#offerVideo"><i class="fa-solid fa-volume-xmark"></i> Tap to unmute</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section">
+  <div class="wrap split">
+    <div class="about-photo reveal">
+      <img src="{% static 'main/images/lab1.jpg' %}" alt="Students learning in the CSC Anna Nagar computer lab" width="612" height="408" loading="lazy">
+    </div>
+    <div class="reveal">
+      <h2>About CSC Anna Nagar Institute</h2>
+      <h3>Empowering Learners Through Technology</h3>
+      <p class="lead">Building practical skills, confidence, and career readiness through quality computer education</p>
+      <a href="{% url 'about' %}" class="btn btn--dark">Read More <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRAMMES (from prospectus) ================= -->
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Career programmes</h2>
+      <p>{{ program_total }} job-oriented programmes from the CSC Prospectus 2026 - from MS Office and Tally to Full Stack and AI.</p>
+    </div>
+    <div class="grid grid--3">
+      {% for p in featured_programs %}
+      <a class="prog-card card card--lift" href="{% url 'program_detail' p.slug %}" data-quickview="{{ p.slug }}" aria-haspopup="dialog">
+        <span class="badge badge--soft">{{ p.level }}</span>
+        <h3>{{ p.name }}</h3>
+        <p class="muted">{{ p.audience }}</p>
+        <span class="link-arrow">View details <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      {% endfor %}
+    </div>
+    <p style="margin-top:2rem"><a href="{% url 'programs' %}" class="btn btn--primary">Explore all programmes</a></p>
+  </div>
+</section>
+
+<!-- ================= POPULAR COURSES ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><h2>Popular Courses</h2></div>
+    <div class="marquee">
+      <div class="marquee__track{% if courses|length <= 5 %} is-static{% endif %}">
+        {% for c in courses %}
+        <div class="course-tile"><img src="{{ c.image.url }}" alt="{{ c.title }}" loading="lazy"><p>{{ c.title }}</p></div>
+        {% endfor %}
+        {% if courses|length > 5 %}
+        {% for c in courses %}
+        <div class="course-tile" aria-hidden="true"><img src="{{ c.image.url }}" alt="" loading="lazy"><p>{{ c.title }}</p></div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ACHIEVEMENTS ================= -->
+<section class="section section--indigo on-dark">
+  <div class="wrap">
+    <div class="section-head center"><h2>Achievements</h2></div>
+    <div class="carousel" data-carousel data-autoplay>
+      <button class="carousel__btn" data-prev type="button" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="carousel__track">
+        {% for a in achievements %}
+        <article class="ach-card">
+          {% if a.image %}<img src="{{ a.image.url }}" alt="{{ a.title }}" loading="lazy">{% else %}<div class="ach-card__ph"><i class="fa-solid fa-trophy"></i></div>{% endif %}
+          <h3>{{ a.title }}</h3>
+          <p>{{ a.description|truncatewords:20 }}</p>
+        </article>
+        {% empty %}
+        <p class="muted" style="padding:1rem">Achievements will appear here soon.</p>
+        {% endfor %}
+      </div>
+      <button class="carousel__btn" data-next type="button" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <p class="center" style="margin-top:1.75rem"><a href="{% url 'achievements' %}" class="btn btn--primary">See All</a></p>
+  </div>
+</section>
+
+<!-- ================= WORKSHOPS ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><h2>Workshops</h2></div>
+    <div class="marquee">
+      <div class="marquee__track">
+        {% for w in workshops %}
+        <div class="ws-tile">{% if w.image %}<img src="{{ w.image.url }}" alt="CSC workshop photo" loading="lazy">{% endif %}</div>
+        {% endfor %}
+        {% for w in workshops %}
+        <div class="ws-tile" aria-hidden="true">{% if w.image %}<img src="{{ w.image.url }}" alt="" loading="lazy">{% endif %}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INSPIRATION ================= -->
+<section class="section insp-home">
+  <div class="wrap split">
+    <div class="insp-person reveal">
+      <div class="portrait"><img src="{% static 'main/images/image.png' %}" alt="Dr. APJ Abdul Kalam" width="482" height="400" loading="lazy"></div>
+      <p class="caption"><span>&ldquo;</span> Great dreams inspire great actions.</p>
+    </div>
+    <div class="reveal">
+      <span class="badge"><i class="fa-solid fa-star"></i> Inspiration for every learner</span>
+      <h2 style="margin-top:1rem">Dream Big. Learn More. Achieve More.</h2>
+      <blockquote class="quote">Learning gives you the power to imagine, the courage to create, and the confidence to grow.<footer>Inspirational Thought</footer></blockquote>
+      <p>At CSC Computer Software College, we believe every student has the potential to achieve something great. Learn new skills, discover your strengths, and build a future you can be proud of.</p>
+      <ul class="chips" style="margin-bottom:1.5rem"><li class="chip">Practical Learning</li><li class="chip">Career Support</li><li class="chip">Industry-Relevant</li><li class="chip">Continuous Growth</li></ul>
+      <a href="{% url 'inspiration' %}" class="btn btn--dark">Read More <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="{% url 'courses' %}" class="btn btn--ghost">Explore Our Courses</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STUDENT REVIEWS ================= -->
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head center"><h2>Student Reviews</h2></div>
+    <div class="marquee">
+      <div class="marquee__track{% if reviews|length <= 3 %} is-static{% endif %}">
+        {% for r in reviews %}{% include 'main/partials/review_card.html' %}{% endfor %}
+        {% if reviews|length > 3 %}{% for r in reviews %}{% include 'main/partials/review_card.html' %}{% endfor %}{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="section section--tight">
+  <div class="wrap stat-row">
+    <div class="stat"><b data-target="1000" data-suffix="+">1,000+</b><span>Successful Students</span></div>
+    <div class="stat"><b data-target="500" data-suffix="+">500+</b><span>Certifications</span></div>
+    <div class="stat"><b data-target="450" data-suffix="+">450+</b><span>Branches</span></div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section section--tint" id="contact">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>Get In Touch</h2>
+      <p>Have questions or want to book a demo? Reach out to us anytime.</p>
+    </div>
+    <div class="contact-split">
+      <div class="contact-list">
+        <div class="contact-item"><span class="icon-chip"><i class="fa-solid fa-location-dot"></i></span>
+          <div><h3>Location</h3><p><a href="{{ site.map_link }}" target="_blank" rel="noopener noreferrer">AP-814, "G" Block, 1st Street,<br>Near Anna Nagar Tower,<br>Anna Nagar, Chennai</a></p></div></div>
+        <div class="contact-item"><span class="icon-chip"><i class="fa-solid fa-phone"></i></span>
+          <div><h3>Phone</h3><p><a href="tel:{{ site.phone_link }}">{{ site.phone }}</a></p></div></div>
+        <div class="contact-item"><span class="icon-chip"><i class="fa-regular fa-envelope"></i></span>
+          <div><h3>Email</h3><p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p></div></div>
+      </div>
+      <div class="card">
+        <form method="post" action="{% url 'contact' %}" id="homeContactForm" novalidate>
+          {% csrf_token %}
+          <div class="field"><input type="text" id="homeName" name="name" placeholder="Your Name" maxlength="25" autocomplete="name" aria-label="Your Name" oninput="homeValidateName(this)" required><small id="homeNameError" class="field-error"></small></div>
+          <div class="field"><input type="email" id="homeEmail" name="email" placeholder="Your Email" autocomplete="email" aria-label="Your Email" oninput="homeValidateEmail(this)" required><small id="homeEmailError" class="field-error"></small></div>
+          <div class="field"><textarea name="message" id="homeMessage" rows="4" placeholder="Your Message" aria-label="Your Message" required></textarea></div>
+          <button type="submit" class="btn btn--dark btn--block" id="homeSubmitBtn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OFFER POPUP (from admin: Special offers -> "Show popup") ================= -->
+
+{% if popup_offers %}
+<div class="op-overlay" id="opOverlay" role="dialog" aria-modal="true" aria-label="Special offers"
+     data-ids="{% for o in popup_offers %}{{ o.id }}{% if not forloop.last %}-{% endif %}{% endfor %}">
+  <div class="op-card" id="opCard">
+
+    <div class="op-progress"><i id="opBar"></i></div>
+    <button class="op-close" type="button" aria-label="Close offers" id="opClose"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="op-counter" id="opCounter">1 / {{ popup_offers|length }}</div>
+    <button class="op-arrow op-prev" type="button" aria-label="Previous offer" id="opPrev"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="op-arrow op-next" type="button" aria-label="Next offer" id="opNext"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+
+    <div class="op-slider" id="opSlider">
+      <div class="op-track" id="opTrack">
+
+        {% for o in popup_offers %}
+        <article class="op-slide{% if forloop.first %} active{% endif %}">
+          <div class="op-banner">
+            {% if o.image %}
+              <img src="{{ o.image.url }}" alt="{{ o.title }}">
+            {% else %}
+              <div class="op-banner__ph" aria-hidden="true">🎁</div>
+            {% endif %}
+            <span class="op-tag">🎁 {% if o.badge %}{{ o.badge }}{% else %}Special Offer{% endif %}</span>
+          </div>
+
+          <div class="op-body">
+            <div class="op-eyebrow">CSC Anna Nagar · Special Offer</div>
+            <h2 class="op-title">{{ o.title }}</h2>
+
+            {% if o.highlight %}
+            <div class="op-highlight{% if o.highlight|length > 12 %} stacked{% endif %}">
+              <strong>{{ o.highlight }}</strong>
+              {% if o.description %}<span>{{ o.description|linebreaksbr }}</span>{% endif %}
+            </div>
+            {% elif o.description %}
+            <p class="op-desc">{{ o.description|linebreaksbr }}</p>
+            {% endif %}
+
+            <div class="op-meta">
+              {% if o.valid_until %}<span class="op-chip urgent"><span class="ico">⏰</span> Valid until {{ o.valid_until|date:"d M Y" }}</span>{% endif %}
+              <span class="op-chip">📍 Anna Nagar</span>
+            </div>
+          </div>
+
+          <div class="op-actions">
+            <a class="op-btn op-btn--primary" href="{% if o.button_url %}{{ o.button_url }}{% else %}{% url 'contact' %}{% endif %}">{{ o.button_text|default:"Enquire Now" }} →</a>
+            <a class="op-btn op-btn--ghost" href="{% url 'offers' %}">All Offers</a>
+          </div>
+        </article>
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <div class="op-dots" id="opDots"></div>
+    <div class="op-foot"><button type="button" id="opDismiss">Don't show again today</button></div>
+  </div>
+</div>
+
+{% endif %}
+
+<!-- ================= PROGRAMME DETAILS POP-UP (animated) ================= -->
+<div class="modal qv-modal" id="qvModal" role="dialog" aria-modal="true" aria-labelledby="qvTitle">
+  <div class="modal__box qv-box">
+    <button class="modal__close qv-close" type="button" data-close-modal aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div id="qvContent"></div>
+  </div>
+</div>
+{{ quick_programs|json_script:"qvData" }}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'main/js/form-validation.js' %}"></script>
+<script src="{% static 'main/js/home.js' %}" defer></script>
+<script>
+var HOME_EMAIL_REGEX = /^[A-Za-z0-9]+([._%+-][A-Za-z0-9]+)*@([A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?\.)+(com|in|org|net|edu|gov|info|biz|io|co|us|uk|ai)$/i;
+function homeValidateName(input) {
+  var error = document.getElementById("homeNameError"), old = input.value;
+  var clean = old.replace(/[^A-Za-z ]/g, "").replace(/^\s+/, "").replace(/\s{2,}/g, " ").slice(0, 40);
+  input.value = clean;
+  error.textContent = old !== clean ? "Only alphabets and spaces allowed (max 40 characters)" : "";
+}
+function homeValidateEmail(input) {
+  var error = document.getElementById("homeEmailError");
+  var value = input.value.replace(/[^A-Za-z0-9@._%+-]/g, ""); input.value = value;
+  if (value === "") error.textContent = "";
+  else if (value.indexOf("@") === -1) error.textContent = "Email must contain @";
+  else if ((value.match(/@/g) || []).length > 1) error.textContent = "Only one @ is allowed";
+  else if (/^@/.test(value) || /^[._%+-]/.test(value)) error.textContent = "Enter letters or numbers before @";
+  else if (/@$/.test(value) || /@[^A-Za-z0-9]/.test(value)) error.textContent = "Enter your domain name after @ (e.g. gmail)";
+  else if (!/@[^@]*\.[^@]*$/.test(value)) error.textContent = "Add a dot after the domain (e.g. gmail.com)";
+  else if (!HOME_EMAIL_REGEX.test(value)) error.textContent = "Email must end with .com, .in, .co.in, .edu.in, .org, .net etc.";
+  else error.textContent = "";
+}
+document.addEventListener('DOMContentLoaded', function () {
+  var form = document.getElementById('homeContactForm'); if (!form) return;
+  form.addEventListener('submit', function (e) {
+    var name = document.getElementById("homeName").value.trim(), email = document.getElementById("homeEmail").value.trim(), msg = document.getElementById("homeMessage").value.trim(), ok = true;
+    if (!/^[A-Za-z ]{1,40}$/.test(name)) { document.getElementById("homeNameError").textContent = "Enter a valid name (alphabets and spaces only, max 40 characters)"; ok = false; }
+    if (!HOME_EMAIL_REGEX.test(email)) { document.getElementById("homeEmailError").textContent = "Enter a valid email (e.g. name@gmail.com)"; ok = false; }
+    if (!msg) { document.getElementById("homeMessage").focus(); ok = false; }
+    if (!ok) e.preventDefault();
+  });
+});
+</script>
+<script>
+(function () {
+  var overlay = document.getElementById('opOverlay'); if (!overlay) return;
+  var card = document.getElementById('opCard'), track = document.getElementById('opTrack'),
+      slider = document.getElementById('opSlider'), dotsEl = document.getElementById('opDots'),
+      counter = document.getElementById('opCounter'), bar = document.getElementById('opBar'),
+      slides = [].slice.call(track.children), total = slides.length;
+
+  var AUTO_MS = 6000;      // auto-slide time in ms (set 0 to turn off)
+  var OPEN_DELAY = 1500;   // popup opens after this many ms
+  var KEY = 'cscOfferPopup:' + (overlay.getAttribute('data-ids') || '');
+  var index = 0, timer = null;
+
+  document.documentElement.style.setProperty('--op-auto', AUTO_MS + 'ms');
+
+  for (var i = 0; i < total; i++) {
+    (function (n) {
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'op-dot'; d.setAttribute('aria-label', 'Go to offer ' + (n + 1));
+      d.addEventListener('click', function () { show(n); restart(); });
+      dotsEl.appendChild(d);
+    })(i);
+  }
+  if (total < 2) card.classList.add('single');
+
+  function show(n) {
+    index = (n + total) % total;
+    track.style.transform = 'translateX(' + (-100 * index) + '%)';
+    counter.textContent = (index + 1) + ' / ' + total;
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === index); });   // retriggers entrance animations
+    [].forEach.call(dotsEl.children, function (d, k) { d.classList.toggle('active', k === index); });
+  }
+  function restartBar() { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+  function restart() {
+    clearInterval(timer); restartBar();
+    if (AUTO_MS && total > 1) timer = setInterval(function () { show(index + 1); restartBar(); }, AUTO_MS);
+  }
+  function go(step) { show(index + step); restart(); }
+
+  function open() {
+    overlay.classList.add('is-open'); document.body.style.overflow = 'hidden';
+    show(0); restart();
+  }
+  function close() {
+    overlay.classList.remove('is-open'); document.body.style.overflow = '';
+    clearInterval(timer);
+  }
+  function dismissToday() { try { localStorage.setItem(KEY, new Date().toDateString()); } catch (e) {} close(); }
+
+  document.getElementById('opClose').addEventListener('click', close);
+  document.getElementById('opDismiss').addEventListener('click', dismissToday);
+  document.getElementById('opPrev').addEventListener('click', function () { go(-1); });
+  document.getElementById('opNext').addEventListener('click', function () { go(1); });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!overlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+  card.addEventListener('mouseenter', function () { clearInterval(timer); });   // pause on hover (bar pauses via CSS)
+  card.addEventListener('mouseleave', restart);
+
+  var startX = null;                                                              // swipe (mobile)
+  slider.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; clearInterval(timer); }, { passive: true });
+  slider.addEventListener('touchend', function (e) {
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 45) go(dx < 0 ? 1 : -1); else restart();
+    startX = null;
+  });
+
+  window.addEventListener('load', function () {
+    var hidden = false;
+    try { hidden = localStorage.getItem(KEY) === new Date().toDateString(); } catch (e) {}
+    if (!hidden) setTimeout(open, OPEN_DELAY);
+  });
+})();
+</script>
+{% endblock %}

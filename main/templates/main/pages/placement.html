@@ -1,0 +1,92 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Placement Support | Career Preparation | CSC Computer Software College{% endblock %}
+{% block meta_description %}CSC placement support in Chennai: resume building, technical skills, interview practice and career guidance to take students from skills to opportunities.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}"><link rel="stylesheet" href="{% static 'main/css/pages/content.css' %}">{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap hero-split">
+    <div>
+      <span class="kicker">Placement Support</span>
+      <h1>From Skills to Opportunities</h1>
+      <p>Build the skills you need, prepare with confidence, and receive guidance as you take your next step toward the workplace.</p>
+      <div class="page-hero__actions">
+        <a href="{% url 'contact' %}" class="btn btn--primary">Get Placement Support <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="{% url 'courses' %}" class="btn btn--outline-light">Explore Courses</a>
+      </div>
+    </div>
+    <div class="hero-photo"><img src="{% static 'main/images/python.webp' %}" alt="CSC students receiving career guidance" width="600" height="400"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><span class="badge">Placement Support Journey</span><h2 style="margin-top:1rem">How CSC Supports Your Placement Journey</h2></div>
+    <ol class="journey-steps">
+      {% for step in steps %}<li><b>{{ forloop.counter|stringformat:"02d" }}</b><h3>{{ step.title|upper }}</h3><p>{{ step.description }}</p></li>{% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head center"><span class="badge">Placement Support Services</span><h2 style="margin-top:1rem">What Our Placement Support Includes</h2><p>Six areas of preparation that help you step into the workplace with confidence.</p></div>
+    <div class="grid grid--3">
+      {% for service in services %}<div class="card card--lift"><span class="icon-chip" style="font-size:1.5rem">{{ service.icon }}</span><h3>{{ service.title }}</h3><p>{{ service.description }}</p></div>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="about-photo"><img src="{% static 'main/images/java.webp' %}" alt="Resume review session at CSC" loading="lazy" width="600" height="400"></div>
+    <div>
+      <span class="badge">Career Readiness</span>
+      <h2 style="margin-top:1rem">Prepare Before the Opportunity Arrives</h2>
+      <p>Placement support is more than applying for a job. It is about preparing your skills, profile, communication and confidence before you step into the professional world.</p>
+      <ul class="ticks"><li>Resume</li><li>Technical Skills</li><li>Interview Confidence</li></ul>
+      <a href="{% url 'contact' %}" class="btn btn--dark">Talk to CSC <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--indigo on-dark">
+  <div class="wrap center">
+    <span class="badge">Placement Preparation</span>
+    <h2 style="margin-top:1rem">Be Ready. Be Confident.</h2>
+    <ul class="chips" style="justify-content:center;margin-top:1.25rem">
+      <li class="chip">Technical Skills</li><li class="chip">Communication</li><li class="chip">Professional Etiquette</li><li class="chip">Resume</li><li class="chip">Interview Practice</li><li class="chip">Career Awareness</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div>
+      <span class="badge">Opportunity Connection</span>
+      <h2 style="margin-top:1rem">Connecting Preparation With Opportunity</h2>
+      <p>CSC helps learners understand their career options and prepare for opportunities that align with their skills, interests and learning journey.</p>
+      <a href="{% url 'career' %}" class="btn btn--dark">Explore Careers <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <ol class="path">
+      <li><i class="fa-solid fa-user-graduate"></i>Student</li>
+      <li><i class="fa-solid fa-chart-simple"></i>Skills</li>
+      <li><i class="fa-regular fa-newspaper"></i>Resume</li>
+      <li><i class="fa-solid fa-calendar-days"></i>Interview</li>
+      <li><i class="fa-solid fa-desktop"></i>Workplace</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--sun">
+  <div class="wrap center">
+    <h2>Your Next Opportunity Starts With Preparation</h2>
+    <p class="lead" style="color:var(--indigo-800)">Learn the skills. Build your confidence. Prepare for your career.</p>
+    <div class="page-hero__actions" style="justify-content:center">
+      <a href="{% url 'courses' %}" class="btn btn--dark btn--lg">Explore Courses</a>
+      <a href="{% url 'contact' %}" class="btn btn--ghost btn--lg">Contact CSC</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

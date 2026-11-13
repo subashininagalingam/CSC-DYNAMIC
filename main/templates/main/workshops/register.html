@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Register | {{ w.title }} | CSC Workshops{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}"><link rel="stylesheet" href="{% static 'main/css/pages/workshops.css' %}">{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <a href="{% url 'workshop_detail' w.id %}" class="breadcrumb" style="display:inline-flex">&larr; Back to workshop</a><br>
+    <span class="kicker">Workshop Registration</span>
+    <h1>Reserve Your Seat</h1>
+    <p>Fill in your details and our team will confirm your registration.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap detail-layout">
+    <div class="card card--outline" id="wk-form">
+      <h2 style="font-size:var(--fs-xl)">Your Details</h2>
+      <p class="muted">Please enter correct details. We will contact you to confirm.</p>
+      <form method="post" class="form-stack">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn--primary btn--block btn--lg">Confirm My Seat <i class="fa-solid fa-arrow-right"></i></button>
+      </form>
+    </div>
+    <aside class="detail-aside">
+      <div class="card">
+        <h2 style="font-size:var(--fs-xl)">Selected Workshop</h2>
+        <p class="muted">You are registering for this workshop.</p>
+        {% if w.image %}<img src="{{ w.image.url }}" alt="{{ w.title }}" style="border-radius:var(--r-md);margin-bottom:1rem">{% endif %}
+        <h3>{{ w.title }}</h3>
+        <ul class="fact-list">
+          <li><span>Date</span><strong>{{ w.date|date:"d M Y" }}</strong></li>
+          <li><span>Time</span><strong>{{ w.start_time|time:"h:i A" }} – {{ w.end_time|time:"h:i A" }}</strong></li>
+          <li><span>Mode</span><strong>{{ w.mode }}</strong></li>
+          {% if w.venue %}<li><span>Venue</span><strong>{{ w.venue }}</strong></li>{% endif %}
+          {% if w.seats_left != None %}<li><span>Seats left</span><strong>{{ w.seats_left }}</strong></li>{% endif %}
+        </ul>
+      </div>
+      <div class="card card--tint"><h3>Need Help Registering?</h3><p>Call or message CSC and our team will help you.</p><a href="{% url 'contact' %}" class="btn btn--dark btn--sm">Contact Us</a></div>
+    </aside>
+  </div>
+</section>
+{% endblock %}
+{% block extra_js %}<script src="{% static 'main/js/form-validation.js' %}"></script>{% endblock %}

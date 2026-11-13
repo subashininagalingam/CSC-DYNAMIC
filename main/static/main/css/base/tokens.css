@@ -1,0 +1,61 @@
+/* ==========================================================================
+   DESIGN TOKENS - colours are taken from the CSC logo
+   Logo indigo #272173  |  Logo yellow #FEF100
+   ========================================================================== */
+:root {
+  --indigo-950: #1A1550;
+  --indigo-900: #231D6B;
+  --indigo-800: #1F1966;
+  --indigo-700: #272173;   /* logo outline */
+  --indigo-600: #3830A0;
+  --indigo-500: #4F46C8;
+  --indigo-200: #CFCCF0;
+  --indigo-100: #E8E6F9;
+  --indigo-50:  #F4F3FC;
+
+  /* Soft, light yellow derived from the logo yellow (#FEF100) - easy on the eyes */
+  --sun-100: #FFFBE6;
+  --sun-200: #FFF6C4;
+  --sun-300: #FFF0A0;
+  --sun-400: #FFE97A;      /* main light-yellow fill */
+  --sun-500: #F6D955;      /* hover */
+  --sun-600: #E3C13A;
+
+  --ink:   #16123F;
+  --text:  #2B2757;
+  --muted: #615E85;
+  --line:  #E2E0F2;
+  --mist:  #F7F7FC;
+  --paper: #FFFFFF;
+
+  --ok:     #137A55;
+  --ok-bg:  #E5F6EE;
+  --err:    #C7312B;
+  --err-bg: #FDECEB;
+
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body:    'Figtree', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  --fs-xs: .8125rem;
+  --fs-sm: .9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --fs-2xl: clamp(1.8rem, 1.35rem + 2vw, 2.8rem);
+  --fs-3xl: clamp(2.2rem, 1.4rem + 3.4vw, 4rem);
+
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(23,18,79,.06), 0 2px 8px rgba(23,18,79,.05);
+  --shadow-md: 0 10px 30px rgba(23,18,79,.10);
+  --shadow-lg: 0 24px 60px rgba(23,18,79,.18);
+  --shadow-pop: 6px 6px 0 var(--indigo-700);
+
+  --wrap: 1200px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --header-h: 76px;
+  --ease: cubic-bezier(.2,.7,.2,1);
+}

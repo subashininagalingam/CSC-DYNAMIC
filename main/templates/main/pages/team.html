@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Our Team | Trainers & Mentors | CSC Anna Nagar{% endblock %}
+{% block meta_description %}Meet the trainers, mentors and staff of CSC Anna Nagar, Chennai - experienced professionals who guide students from first lesson to placement.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/team.css' %}">{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>Our Team</span></nav>
+    <span class="kicker">Our Team</span>
+    <h1>The people behind your learning</h1>
+    <p>Meet the trainers and mentors who guide every student at CSC Anna Nagar.</p>
+  </div>
+</section>
+
+{% for s in sections %}
+<section class="section {% cycle '' 'section--tint' %}">
+  <div class="wrap">
+    <div class="section-head"><h2>{{ s.label }}</h2></div>
+    <div class="team-grid">
+      {% for m in s.members %}
+      <article class="member">
+        <div class="member__photo">
+          {% if m.photo %}<img src="{{ m.photo.url }}" alt="{{ m.name }}, {{ m.designation }}" loading="lazy">{% else %}<span class="member__ph" aria-hidden="true">{{ m.name|slice:":1"|upper }}</span>{% endif %}
+        </div>
+        <div class="member__body">
+          <h3>{{ m.name }}</h3>
+          <p class="member__role">{{ m.designation }}</p>
+          {% if m.qualification or m.experience %}
+          <ul class="chips">
+            {% if m.qualification %}<li class="chip">{{ m.qualification }}</li>{% endif %}
+            {% if m.experience %}<li class="chip">{{ m.experience }}</li>{% endif %}
+          </ul>
+          {% endif %}
+          {% if m.bio %}<p class="member__bio">{{ m.bio }}</p>{% endif %}
+          {% if m.linkedin_url %}<a class="member__in" href="{{ m.linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ m.name }} on LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>{% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% empty %}
+<section class="section">
+  <div class="wrap"><div class="empty"><h3>Team profiles are coming soon</h3><p>We are preparing introductions for our trainers and staff. In the meantime, <a href="{% url 'contact' %}">get in touch</a> and meet us in person.</p></div></div>
+</section>
+{% endfor %}
+
+<section class="section section--indigo on-dark">
+  <div class="wrap center">
+    <h2>Learn from people who care about your career</h2>
+    <p class="lead">Visit CSC Anna Nagar or register for SAT 2026 to get started.</p>
+    <div class="page-hero__actions" style="justify-content:center">
+      <a class="btn btn--primary" href="{% url 'registration' %}">Register Now</a>
+      <a class="btn btn--outline-light" href="{% url 'contact' %}">Contact CSC</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

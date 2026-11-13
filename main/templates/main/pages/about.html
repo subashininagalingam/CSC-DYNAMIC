@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}About CSC Anna Nagar | Computer Training Institute in Chennai{% endblock %}
+{% block meta_description %}About CSC Anna Nagar Institute, Chennai - student-focused computer education with practical training, expert trainers, live projects, certification and career guidance.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}"><link rel="stylesheet" href="{% static 'main/css/pages/content.css' %}">{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero--dark about-hero">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide" style="background-image:url('{% static 'main/images/cloud.webp' %}')"></div>
+    <div class="hero-slide" style="background-image:url('{% static 'main/images/digital.webp' %}')"></div>
+    <div class="hero-slide" style="background-image:url('{% static 'main/images/cloud.webp' %}')"></div>
+    <div class="hero-slide" style="background-image:url('{% static 'main/images/digital.webp' %}')"></div>
+  </div>
+  <div class="wrap" style="position:relative;z-index:2">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{% url 'home' %}">Home</a><i class="fa-solid fa-chevron-right"></i><span>About</span></nav>
+    <h1>About CSC Anna Nagar Institute</h1>
+    <p><strong>Empowering Learners Through Technology</strong></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div>
+      <span class="badge">About Us</span>
+      <h2 style="margin-top:1rem">Who We Are</h2>
+      <p><strong>CSC</strong> is a student-focused computer education insitution that prioritizies practical technology skill development practical techonology skill development.</p>
+      <p>Technical education is onsmistr by <strong>Identailing, Practical, Education, and Technical education </strong> Practical learning, skill development, and career preparation.</p>
+      <p><strong>CSC</strong> has sencerhanted computer techniques, are practical education, technical tearing, skill development and career preparation.</p>
+    </div>
+    <div class="card card--outline trust">
+      <span class="icon-chip"><i class="fas fa-graduation-cap"></i></span>
+      <h3>Trusted by 1000+ Students</h3>
+      <p>From beginners to professionals — we have trained over a thousand students across IT, software, and digital skill courses since our establishment.</p>
+      <div class="trust__num"><b>1000+</b> Students Trained</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Our Approach</h2></div>
+    <ol class="approach">
+      <li><b>01</b><i class="fa-solid fa-book-open-reader"></i><h3>Learn</h3><p>Build strong technical fundamentals</p></li>
+      <li><b>02</b><i class="fa-solid fa-laptop-code"></i><h3>Practice</h3><p>Apply concepts through practical learning</p></li>
+      <li><b>03</b><i class="fa-solid fa-screwdriver-wrench"></i><h3>Build</h3><p>Create projects and develop real-world confidence</p></li>
+      <li><b>04</b><i class="fa-solid fa-arrow-trend-up"></i><h3>Grow</h3><p>Prepare for professional opportunities</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--indigo on-dark">
+  <div class="wrap stat-row">
+    <div class="stat"><b data-target="1000" data-suffix="+">1,000+</b><span>Successful Students</span></div>
+    <div class="stat"><b data-target="100" data-suffix="+">100+</b><span>Certifications</span></div>
+    <div class="stat"><b data-target="15" data-suffix="+">15+</b><span>Courses Offered</span></div>
+    <div class="stat"><b data-target="98" data-suffix="%">98%</b><span>Satisfaction Rate</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div class="mission-points">
+      <div class="card"><span class="icon-chip"><i class="fas fa-bullseye"></i></span><h4>Quality Education</h4><p>High-quality, affordable, and practical training tailored for real industry needs.</p></div>
+      <div class="card"><span class="icon-chip"><i class="fas fa-laptop-code"></i></span><h4>Skill Development</h4><p>We focus on building the exact skills employers are looking for today.</p></div>
+      <div class="card"><span class="icon-chip"><i class="fas fa-user-tie"></i></span><h4>Career Guidance</h4><p>Continuous support from learning to placement — we walk with every student.</p></div>
+      <div class="card"><span class="icon-chip"><i class="fas fa-circle-check"></i></span><h4>Community &amp; Support</h4><p>A strong alumni network and mentor community that lasts beyond the course.</p></div>
+    </div>
+    <div>
+      <span class="badge"><i class="fas fa-bullseye"></i> Mission</span>
+      <h2 style="margin-top:1rem">Our Mission</h2>
+      <p>Our mission is to provide high-quality, affordable, and practical training that transforms students into industry-ready professionals.</p>
+      <p>We believe in <strong>skill development, career guidance,</strong> and continuous improvement to unlock student potential and drive long-term success in every student's IT journey.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head center"><h2>Why Choose CSC Anna Nagar?</h2><p>Everything you need to launch and accelerate your IT career — all in one place.</p></div>
+    <div class="grid grid--3">
+      <div class="card card--lift"><span class="icon-chip"><i class="fas fa-chalkboard-teacher"></i></span><h3>Expert Trainers</h3><p>Learn from industry professionals with real-time experience and proven track records.</p></div>
+      <div class="card card--lift"><span class="icon-chip"><i class="fa-solid fa-laptop-code"></i></span><h3>Live Projects</h3><p>Gain strong hands-on experience with live and practical real-world projects.</p></div>
+      <div class="card card--lift"><span class="icon-chip"><i class="fa-solid fa-handshake"></i></span><h3>Career Support</h3><p>Resume building, mock interviews, and full placement assistance included.</p></div>
+      <div class="card card--lift"><span class="icon-chip"><i class="fas fa-clock"></i></span><h3>Flexible Batches</h3><p>Morning, evening, and weekend batches designed around your schedule.</p></div>
+      <div class="card card--lift"><span class="icon-chip"><i class="fas fa-certificate"></i></span><h3>Certification</h3><p>Receive recognised certificates on course completion to boost your resume.</p></div>
+      <div class="card card--lift"><span class="icon-chip"><i class="fas fa-globe"></i></span><h3>Online &amp; Offline</h3><p>Attend classes from home or in-person — we support both learning modes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--sun">
+  <div class="wrap center">
+    <span class="badge" style="background:#fff"><i class="fas fa-rocket"></i> Take the Next Step</span>
+    <h2 style="margin-top:1rem">Join CSC Anna Nagar Institute Today</h2>
+    <p class="lead" style="color:var(--indigo-800)">Take your first step toward a successful IT career with professional guidance, expert training, and a community that supports you every step of the way.</p>
+    <div class="page-hero__actions" style="justify-content:center">
+      <a href="{% url 'contact' %}" class="btn btn--dark btn--lg"><i class="fas fa-phone"></i> Contact Us</a>
+      <a href="{% url 'home' %}" class="btn btn--ghost btn--lg"><i class="fas fa-house"></i> Back to Home</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

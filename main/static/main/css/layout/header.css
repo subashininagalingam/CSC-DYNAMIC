@@ -1,0 +1,76 @@
+/* ---------- Layout offsets ---------- */
+:root {
+  --topbar-h: 38px;
+}
+
+body { padding-top: calc(var(--topbar-h) + var(--header-h)); }
+
+html { scroll-padding-top: calc(var(--topbar-h) + var(--header-h) + 8px); }
+
+/* ---------- Top bar: scrolling highlights ---------- */
+.topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1001; background: var(--indigo-800); color: #fff; font-size: var(--fs-xs); overflow: hidden; height: var(--topbar-h); display: flex; align-items: center; }
+.topbar__marquee { width: 100%; overflow: hidden; }
+.topbar__track { display: flex; width: max-content; animation: topbarScroll 32s linear infinite; }
+.topbar:hover .topbar__track, .topbar:focus-within .topbar__track { animation-play-state: paused; }
+.topbar__group { display: flex; align-items: center; gap: 1.1rem; padding-right: 1.1rem; flex-shrink: 0; }
+.tb-item { display: inline-flex; align-items: center; gap: .45rem; color: rgba(255,255,255,.92); text-decoration: none; white-space: nowrap; font-weight: 600; padding: .2rem .6rem; border-radius: var(--r-pill); }
+.tb-item i { color: var(--sun-400); }
+.tb-item:hover { color: #fff; background: rgba(255,255,255,.12); }
+.tb-hl { background: rgba(255,233,122,.16); border: 1px solid rgba(255,233,122,.45); }
+.tb-offer { background: var(--sun-400); color: var(--indigo-900); border: 1px solid var(--sun-400); font-weight: 800; animation: tbPulse 2.4s ease-in-out infinite; }
+.tb-offer i { color: var(--indigo-700); }
+.tb-offer:hover { background: var(--sun-300); color: var(--indigo-900); }
+.tb-dot { color: var(--sun-400); font-size: .6rem; opacity: .8; }
+@keyframes topbarScroll { to { transform: translateX(-50%); } }
+@keyframes tbPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,233,122,.55); } 50% { box-shadow: 0 0 0 6px rgba(255,233,122,0); } }
+@media (prefers-reduced-motion: reduce) {
+  .topbar__track { animation: none; width: 100%; justify-content: center; overflow-x: auto; }
+  .topbar__group:nth-child(2) { display: none; }
+}
+
+/* ---------- Header---------- */
+.site-header { position: fixed; top: var(--topbar-h); left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); transition: box-shadow .25s var(--ease); }
+.site-header.scrolled { box-shadow: 0 6px 24px rgba(23,18,79,.10); }
+.site-header .wrap { display: flex; align-items: center; gap: 1.25rem; min-height: var(--header-h); }
+.brand { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; flex-shrink: 0; text-decoration: none; }
+.brand img { height: 46px; width: auto; }
+.brand__place { font-family: var(--font-display); font-weight: 800; font-size: .68rem; letter-spacing: .3em; text-indent: .3em; text-transform: uppercase; color: var(--indigo-700); line-height: 1; padding: .22rem .6rem; border-radius: var(--r-pill); background: var(--sun-300); }
+
+.nav { margin-left: auto; }
+.nav__list { display: flex; align-items: center; gap: .15rem; list-style: none; margin: 0; padding: 0; }
+.nav__link, .nav__more > button { display: inline-flex; align-items: center; gap: .35rem; padding: .55rem .8rem; font-weight: 600; font-size: var(--fs-sm); color: var(--ink); text-decoration: none; border: 0; background: none; border-radius: var(--r-sm); position: relative; }
+.nav__link:hover, .nav__more > button:hover { color: var(--indigo-500); background: var(--indigo-50); }
+.nav__link.active { color: var(--indigo-700); }
+.nav__link.active::after { content: ""; position: absolute; left: .8rem; right: .8rem; bottom: 2px; height: 3px; border-radius: 3px; background: var(--sun-400); box-shadow: 0 0 0 1px var(--indigo-700); }
+.nav__offer { background: var(--sun-400); color: var(--indigo-900) !important; border-radius: var(--r-pill); padding-inline: 1rem; }
+.nav__offer:hover { background: var(--sun-300) !important; }
+.nav__offer.active::after { display: none; }
+.nav__more { position: relative; }
+.nav__more > button i { font-size: .65rem; transition: transform .2s; }
+.nav__more.open > button i { transform: rotate(180deg); }
+.nav__menu { position: absolute; right: 0; top: calc(100% + 6px); min-width: 200px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow-md); padding: .4rem; list-style: none; margin: 0; display: none; }
+.nav__more.open .nav__menu, .nav__more:hover .nav__menu, .nav__more:focus-within .nav__menu { display: block; }
+.nav__menu a { display: block; padding: .55rem .8rem; border-radius: var(--r-sm); text-decoration: none; color: var(--ink); font-weight: 600; font-size: var(--fs-sm); }
+.nav__menu a:hover, .nav__menu a.active { background: var(--indigo-50); color: var(--indigo-700); }
+
+.header-actions { display: flex; align-items: center; gap: .5rem; }
+.icon-btn { width: 40px; height: 40px; display: inline-grid; place-items: center; border-radius: 50%; color: #fff; text-decoration: none; font-size: 1.1rem; }
+.icon-btn--wa { background: #1FA855; }
+.icon-btn--ig { background: linear-gradient(45deg, #F2A400, #E1306C 55%, #7A3BC9); }
+.icon-btn:hover { color: #fff; transform: translateY(-2px); }
+.nav-toggle { display: none; width: 44px; height: 44px; border-radius: var(--r-sm); border: 1px solid var(--line); background: #fff; font-size: 1.15rem; color: var(--indigo-700); margin-left: auto; }
+
+@media (max-width: 1080px) {
+  .nav-toggle { display: inline-grid; place-items: center; }
+  .header-actions { display: none; }
+  .nav { position: fixed; inset: calc(var(--topbar-h) + var(--header-h)) 0 auto 0; margin: 0; background: #fff; border-bottom: 1px solid var(--line); box-shadow: var(--shadow-md); max-height: calc(100vh - var(--topbar-h) - var(--header-h)); overflow: auto; padding: .75rem var(--gutter) 1.25rem; display: none; }
+  .nav.open { display: block; }
+  .nav__list { flex-direction: column; align-items: stretch; gap: .1rem; }
+  .nav__link { padding: .8rem .75rem; }
+  .nav__link.active::after { left: .75rem; right: auto; width: 28px; }
+  .nav__more > button { display: none; }
+  .nav__menu { display: block; position: static; border: 0; box-shadow: none; padding: 0; }
+  .nav__menu a { padding: .8rem .75rem; }
+  .nav .btn { width: 100%; margin-top: .5rem; }
+  .brand img { height: 40px; }
+}

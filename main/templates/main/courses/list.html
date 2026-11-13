@@ -1,0 +1,151 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Courses | Book a Computer Course in Anna Nagar, Chennai | CSC{% endblock %}
+{% block meta_description %}Browse and book job-oriented computer courses at CSC Anna Nagar, Chennai. Filter by category, mode and level. Project-based training with offer fees.{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'main/css/pages/courses.css' %}">{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap hero-split">
+    <div>
+      <span class="kicker">Learn &middot; Practice &middot; Grow</span>
+      <h1>Explore Our Courses</h1>
+      <p>Learn industry-relevant skills through practical training and real-world projects.</p>
+      <div class="search-box">
+        <label class="sr-only" for="courseSearch">Search courses</label>
+        <input type="text" id="courseSearch" placeholder="Search courses..." autocomplete="off">
+        <button type="button" id="searchButton" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </div>
+    <div class="hero-photo"><img src="{% static 'main/images/lab2.jpg' %}" alt="Students learning programming at CSC" width="612" height="408"></div>
+  </div>
+</section>
+
+<!-- Prospectus programmes -->
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>CSC programmes</h2>
+      <p>Full syllabus, eligibility and projects for every programme in the CSC Prospectus 2026.</p>
+    </div>
+    <ul class="program-rail">
+      {% for p in programs %}
+      <li><a href="{% url 'program_detail' p.slug %}"><b>{{ p.code }}</b><span>{{ p.name }}</span></a></li>
+      {% endfor %}
+    </ul>
+    <p style="margin-top:1.5rem"><a class="btn btn--dark" href="{% url 'programs' %}">View all programmes <i class="fa-solid fa-arrow-right"></i></a></p>
+  </div>
+</section>
+
+<!-- Filters -->
+<section class="section section--tight">
+  <div class="wrap">
+    <h2 style="font-size:var(--fs-xl)">Find the Right Course for You</h2>
+    <div class="filters">
+      <div class="filter-row"><span class="filter-title">Category</span>
+        <button type="button" class="filter-btn active" data-filter="category" data-value="all">All Courses</button>
+        <button type="button" class="filter-btn" data-filter="category" data-value="Software Development">Software Development</button>
+        <button type="button" class="filter-btn" data-filter="category" data-value="Web Development">Web Development</button>
+        <button type="button" class="filter-btn" data-filter="category" data-value="Programming">Programming</button>
+        <button type="button" class="filter-btn" data-filter="category" data-value="UI / UX">UI / UX</button>
+        <button type="button" class="filter-btn" data-filter="category" data-value="Digital Marketing">Digital Marketing</button>
+        <button type="button" class="filter-btn" data-filter="category" data-value="Cloud Computing">Cloud Computing</button>
+      </div>
+      <div class="filter-row"><span class="filter-title">Mode</span>
+        <button type="button" class="filter-btn active" data-filter="mode" data-value="all">All</button>
+        <button type="button" class="filter-btn" data-filter="mode" data-value="Online">Online</button>
+        <button type="button" class="filter-btn" data-filter="mode" data-value="Offline">Offline</button>
+        <button type="button" class="filter-btn" data-filter="mode" data-value="Hybrid">Hybrid</button>
+      </div>
+      <div class="filter-row"><span class="filter-title">Level</span>
+        <button type="button" class="filter-btn active" data-filter="level" data-value="all">All</button>
+        <button type="button" class="filter-btn" data-filter="level" data-value="Beginner">Beginner</button>
+        <button type="button" class="filter-btn" data-filter="level" data-value="Intermediate">Intermediate</button>
+        <button type="button" class="filter-btn" data-filter="level" data-value="Advanced">Advanced</button>
+      </div>
+    </div>
+
+    <div class="grid grid--3 course-grid" style="margin-top:2rem">
+      {% for course in courses %}
+      <article class="media-card course-card" data-course="{{ course.name|escape }}" data-category="{{ course.category }}" data-mode="{{ course.mode }}" data-level="{{ course.level }}">
+        <div class="media-card__img">
+          {% if course.image %}<img src="{{ course.image.url }}" alt="{{ course.name }}" loading="lazy">{% else %}<img src="{% static 'main/images/sample.webp' %}" alt="{{ course.name }}" loading="lazy">{% endif %}
+        </div>
+        <div class="media-card__body">
+          <span class="badge badge--soft">{{ course.category }}</span>
+          <h3>{{ course.name }}</h3>
+          <p>{{ course.description|truncatewords:22 }}</p>
+          <div class="course-info">Duration: {{ course.duration }}</div>
+          <div class="course-info">Fee: <strong>&#8377;{{ course.offer_fee }}</strong> {% if course.original_fee > course.offer_fee %}<del>&#8377;{{ course.original_fee }}</del>{% endif %}</div>
+          <div class="media-card__foot"><a href="{% url 'course_detail' course.id %}" class="link-arrow">View Details <i class="fa-solid fa-arrow-right"></i></a></div>
+        </div>
+      </article>
+      {% empty %}
+      <div class="empty" style="grid-column:1/-1"><h3>No courses available right now.</h3><p>Please check back later or contact CSC for course details.</p><a class="btn btn--dark" href="{% url 'contact' %}">Contact Us</a></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Featured: SAT -->
+<section class="section section--indigo on-dark">
+  <div class="wrap split">
+    <div>
+      <span class="badge">Featured Course</span>
+      <h2 style="margin-top:1rem">SAT 2026 Registration Form</h2>
+      <p class="lead">Limited seats for SAT 2026. Register today, write the exam and win up to 75% scholarship on CSC</p>
+      <p><strong>For Register</strong></p>
+      <a href="{% url 'registration' %}" class="btn btn--primary btn--lg">Click Here <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="hero-photo"><img src="{% static 'main/images/python.webp' %}" alt="Python Full Stack Course" loading="lazy" width="600" height="400"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><h2>What You Can Expect</h2></div>
+    <div class="grid grid--4">
+      <div class="card center"><span class="icon-chip"><i class="fa-solid fa-graduation-cap"></i></span><h3>Practical Learning</h3></div>
+      <div class="card center"><span class="icon-chip"><i class="fa-solid fa-file-pen"></i></span><h3>Project-Based Practice</h3></div>
+      <div class="card center"><span class="icon-chip"><i class="fa-solid fa-chalkboard-user"></i></span><h3>Technical Guidance</h3></div>
+      <div class="card center"><span class="icon-chip"><i class="fa-solid fa-briefcase"></i></span><h3>Career Preparation</h3></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--sun">
+  <div class="wrap center">
+    <h2>Not Sure Which Course to Choose?</h2>
+    <p class="lead" style="color:var(--indigo-800)">Explore your options with us and find the right technology course.</p>
+    <a href="{% url 'contact' %}" class="btn btn--dark btn--lg">Talk to Us <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var cards = document.querySelectorAll(".course-card"), input = document.getElementById("courseSearch"), searchBtn = document.getElementById("searchButton"),
+      buttons = document.querySelectorAll(".filter-btn"), grid = document.querySelector(".course-grid"), filters = { category: "all", mode: "all", level: "all" };
+  var noResult = document.createElement("div"); noResult.className = "empty"; noResult.style.gridColumn = "1/-1"; noResult.hidden = true;
+  noResult.innerHTML = "<h3>No courses found.</h3><p>Try a different keyword or filter.</p>"; grid.appendChild(noResult);
+  function norm(v) { return (v || "").trim().toLowerCase(); }
+  function apply() {
+    var q = input ? norm(input.value) : "", visible = 0;
+    cards.forEach(function (card) {
+      var p = card.querySelector("p"), text = norm(card.dataset.course) + " " + (p ? norm(p.textContent) : "");
+      var show = text.includes(q) && (filters.category === "all" || norm(card.dataset.category) === filters.category) && (filters.mode === "all" || norm(card.dataset.mode) === filters.mode) && (filters.level === "all" || norm(card.dataset.level) === filters.level);
+      card.style.display = show ? "" : "none"; if (show) visible++;
+    });
+    noResult.hidden = !(visible === 0 && cards.length > 0);
+  }
+  buttons.forEach(function (btn) { btn.addEventListener("click", function () {
+    var type = btn.dataset.filter; filters[type] = norm(btn.dataset.value);
+    document.querySelectorAll('.filter-btn[data-filter="' + type + '"]').forEach(function (b) { b.classList.remove("active"); });
+    btn.classList.add("active"); apply(); }); });
+  if (input) input.addEventListener("input", apply);
+  if (searchBtn) searchBtn.addEventListener("click", apply);
+  apply();
+});
+</script>
+{% endblock %}

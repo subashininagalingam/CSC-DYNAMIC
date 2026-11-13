@@ -1,0 +1,81 @@
+{# SAT 2026 scholarship registration form. Used on the home hero and /registration/. #}
+<form method="POST" action="{% url 'registration' %}" class="sat-form" novalidate>
+  {% csrf_token %}
+  {% if form.errors %}
+  <ul class="form-errors">
+    {% for field in form %}{% for error in field.errors %}<li>{{ field.label }}: {{ error }}</li>{% endfor %}{% endfor %}
+  </ul>
+  {% endif %}
+
+  <div class="form-row">
+    <div class="field">
+      <label for="reg-name">Name</label>
+      <input type="text" id="reg-name" name="name" data-validate="name" value="{{ form.name.value|default:'' }}" placeholder="Enter your full name" autocomplete="name" required>
+    </div>
+    <div class="field">
+      <label for="reg-mobile">Mobile Number</label>
+      <input type="text" id="reg-mobile" name="mobile" data-validate="mobile" inputmode="numeric" value="{{ form.mobile.value|default:'' }}" placeholder="10-digit mobile number" autocomplete="tel" required>
+    </div>
+  </div>
+  <p class="field-hint" style="margin:-.5rem 0 1rem">Enter the correct <b>Mobile Number</b> to download the SAT 2026 Admit Card</p>
+
+  <div class="field">
+    <label for="reg-email">Email ID</label>
+    <input type="email" id="reg-email" name="email" data-validate="email" value="{{ form.email.value|default:'' }}" placeholder="you@example.com" autocomplete="email" required>
+  </div>
+
+  <div class="field">
+    <span class="label">Gender</span>
+    <div class="radio-group">
+      <label class="radio-pill"><input type="radio" name="gender" value="male" {% if form.gender.value == 'male' %}checked{% endif %} required><span>Male</span></label>
+      <label class="radio-pill"><input type="radio" name="gender" value="female" {% if form.gender.value == 'female' %}checked{% endif %}><span>Female</span></label>
+      <label class="radio-pill"><input type="radio" name="gender" value="others" {% if form.gender.value == 'others' %}checked{% endif %}><span>Others</span></label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="field">
+      <label for="reg-qualification">Qualification</label>
+      <select id="reg-qualification" name="qualification" required>
+        <option value="">Select Qualification</option>
+        <option value="Below 10th" {% if form.qualification.value == 'Below 10th' %}selected{% endif %}>Below 10th</option>
+        <option value="10th" {% if form.qualification.value == '10th' %}selected{% endif %}>10th</option>
+        <option value="12th" {% if form.qualification.value == '12th' %}selected{% endif %}>12th</option>
+        <option value="Diploma" {% if form.qualification.value == 'Diploma' %}selected{% endif %}>Diploma</option>
+        <option value="UG" {% if form.qualification.value == 'UG' %}selected{% endif %}>UG</option>
+        <option value="PG" {% if form.qualification.value == 'PG' %}selected{% endif %}>PG</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="reg-timing">Timings</label>
+      <select id="reg-timing" name="timing" required>
+        <option value="">Select Timing</option>
+        <option value="Morning" {% if form.timing.value == 'Morning' %}selected{% endif %}>8:00 AM - 12:00 PM</option>
+        <option value="Afternoon" {% if form.timing.value == 'Afternoon' %}selected{% endif %}>12:00 PM - 5:00 PM</option>
+        <option value="Evening" {% if form.timing.value == 'Evening' %}selected{% endif %}>5:00 PM - 9:00 PM</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="field">
+      <label for="reg-district">District</label>
+      <select id="reg-district" name="district" required>
+        <option value="">Select District</option>
+        {% for d in districts %}<option value="{{ d }}" {% if form.district.value == d %}selected{% endif %}>{{ d }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="reg-area">Area</label>
+      <input type="text" id="reg-area" name="area" value="{{ form.area.value|default:'' }}" placeholder="Your area / locality" required>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="reg-address">Address</label>
+    <textarea id="reg-address" name="address" rows="2" placeholder="Door no, street, city" autocomplete="street-address" required>{{ form.address.value|default:'' }}</textarea>
+  </div>
+
+  <button type="submit" class="btn btn--primary btn--block btn--lg">Register Now <i class="fa-solid fa-arrow-right"></i></button>
+  <p class="form-note">By registering, you agree to be contacted by CSC regarding the SAT 2026 exam.</p>
+</form>

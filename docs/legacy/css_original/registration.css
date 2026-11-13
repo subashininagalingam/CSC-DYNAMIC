@@ -1,0 +1,360 @@
+/* 
+   CSC REGISTRATION PAGE
+   Matches registration.html classes
+ */
+
+.reg-page {
+    --navy: #10214b;
+    --navy-dark: #091630;
+    --navy-light: #1d3970;
+    --yellow: #ffda27;
+    --text: #20263b;
+    --muted: #70788b;
+    --border: #e1e5f0;
+    --field: #f6f8fd;
+
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
+    background: #eef1fa;
+    padding: 45px 20px 70px;
+}
+
+.reg-page *,
+.reg-page *::before,
+.reg-page *::after {
+    box-sizing: border-box;
+}
+
+/* ---------- CARD ---------- */
+
+.reg-card {
+    max-width: 880px;
+    margin: 0 auto;
+    overflow: hidden;
+
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: 0 18px 50px rgba(16, 33, 75, 0.1);
+}
+
+/* ---------- HEADER (navy banner) ---------- */
+
+.reg-header {
+    position: relative;
+    padding: 38px 45px 34px;
+    color: #fff;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(61, 100, 190, 0.55), transparent 45%),
+        linear-gradient(115deg, var(--navy-dark), var(--navy) 60%, var(--navy-light));
+}
+
+.reg-header::after {
+    content: "";
+    position: absolute;
+    right: -70px;
+    bottom: -110px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 218, 39, 0.3);
+    pointer-events: none;
+}
+
+.reg-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    color: var(--navy);
+    background: var(--yellow);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+.reg-header h1 {
+    margin: 16px 0 10px;
+    color: #fff;
+    font-size: clamp(26px, 4.2vw, 40px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.reg-highlight {
+    color: var(--yellow);
+}
+
+.reg-header p {
+    max-width: 520px;
+    color: #d5def3;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* ---------- FORM ---------- */
+
+.reg-form {
+    padding: 36px 45px 40px;
+}
+
+.reg-section-title {
+    margin: 34px 0 18px;
+    padding-left: 12px;
+
+    color: var(--navy);
+    border-left: 4px solid var(--yellow);
+
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.reg-form > .reg-section-title:first-of-type {
+    margin-top: 4px;
+}
+
+.reg-field {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.reg-field label,
+.reg-label {
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.reg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+}
+
+.reg-field input[type="text"],
+.reg-field input[type="email"],
+.reg-field input[type="tel"],
+.reg-field select,
+.reg-field textarea {
+    width: 100%;
+    padding: 13px 16px;
+
+    color: var(--text);
+    background: var(--field);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.reg-field select {
+    cursor: pointer;
+}
+
+.reg-field textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.reg-field input::placeholder,
+.reg-field textarea::placeholder {
+    color: #9aa2b8;
+}
+
+.reg-field input:focus,
+.reg-field select:focus,
+.reg-field textarea:focus {
+    background: #fff;
+    border-color: var(--navy);
+    box-shadow: 0 0 0 4px rgba(16, 33, 75, 0.1);
+}
+
+/* ---------- GENDER (pill chips) ---------- */
+
+.reg-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.reg-radio {
+    position: relative;
+    cursor: pointer;
+}
+
+.reg-radio input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.reg-radio span {
+    display: inline-block;
+    padding: 9px 22px;
+
+    color: var(--navy);
+    background: var(--field);
+    border: 1.5px solid var(--border);
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.reg-radio:hover span {
+    border-color: var(--navy);
+}
+
+.reg-radio input:checked + span {
+    background: var(--yellow);
+    border-color: var(--yellow);
+    font-weight: 800;
+}
+
+.reg-radio input:focus-visible + span {
+    outline: 3px solid var(--navy);
+    outline-offset: 2px;
+}
+
+/* ---------- HINT / NOTE ---------- */
+
+.reg-hint {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.reg-hint span {
+    color: var(--navy);
+    font-weight: 800;
+}
+
+.reg-note {
+    margin-top: 14px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ---------- SUBMIT ---------- */
+
+.reg-submit {
+    width: 100%;
+    min-height: 54px;
+    margin-top: 12px;
+
+    color: var(--navy);
+    background: var(--yellow);
+    border: 0;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.reg-submit:hover {
+    background: #ffe766;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(255, 218, 39, 0.3);
+}
+
+.reg-submit:focus-visible {
+    outline: 3px solid var(--navy);
+    outline-offset: 3px;
+}
+
+/* ---------- MESSAGES & ERRORS ---------- */
+
+.reg-messages {
+    margin-bottom: 20px;
+}
+
+.reg-msg {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+
+    color: var(--navy);
+    background: #eaf0ff;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.reg-msg-success {
+    color: #0f5132;
+    background: #e3f6ec;
+}
+
+.reg-msg-error {
+    color: #b42318;
+    background: #fdecec;
+}
+
+.reg-errors {
+    list-style: none;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.reg-errors li {
+    padding: 9px 14px;
+    margin-bottom: 6px;
+
+    color: #b42318;
+    background: #fdecec;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 700px) {
+
+    .reg-page {
+        padding: 25px 12px 50px;
+    }
+
+    .reg-header {
+        padding: 28px 22px 26px;
+    }
+
+    .reg-form {
+        padding: 26px 20px 30px;
+    }
+
+    .reg-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+.form-inline-error {
+    margin-top: 4px;
+    color: #b42318;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-inline-error:empty {
+    display: none;
+}
+
+.form-invalid {
+    border-color: #d92d20 !important;
+    background: #fff5f5 !important;
+}
